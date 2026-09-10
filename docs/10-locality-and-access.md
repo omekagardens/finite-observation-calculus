@@ -63,7 +63,10 @@ by construction, the global (nonlocal) structure.* It is the
 identifiable-content version of the algebraic-QFT picture, where
 spacelike-separated algebras lie in each other's commutants and a superselection
 charge lives in the commutant, so **local observables are structurally blind to a
-global charge.**
+global charge.** (The identifiability annihilator $M^\perp$ and the algebra
+commutant $M'$ are *different* subspaces that play analogous invisibility roles,
+not the same object: for diagonal $M$, $M^\perp$ is the off-diagonal coherences
+while $M' = M$.)
 
 *One-qubit instance (`08`, `03`):* accessible $\{Z\}$ leaves $A = \operatorname{span}\{X\}$
 (the coherence), channel-limited once $X$ is admitted.

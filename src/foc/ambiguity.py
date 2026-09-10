@@ -127,7 +127,7 @@ def symmetry_examples():
     cases = [
         ("x^2+y^2", lambda t: [[2 * t[0], 2 * t[1]]], pts, "continuous (rotation)"),
         ("x*y", lambda t: [[t[1], t[0]]], pts, "continuous (scaling)"),
-        ("x^3+y^3", lambda t: [[3 * t[0] ** 2, 3 * t[1] ** 2]], pts, "accidental"),
+        ("x^3+y^3", lambda t: [[3 * t[0] ** 2, 3 * t[1] ** 2]], pts, "no linear symmetry"),
         ("(eta+delta, eta*delta)",
          lambda t: [[Fraction(1), Fraction(1)], [t[1], t[0]]], pts_nn, "discrete (Z/2)"),
     ]

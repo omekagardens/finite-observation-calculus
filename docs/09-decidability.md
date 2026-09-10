@@ -42,32 +42,39 @@ $F$:
 > The ambiguity is a **symmetry** of $G$ iff $G$ acts transitively on the fiber;
 > otherwise it is an **accidental** degeneracy relative to $G$.
 
-**The computable case (linear $G$).** For $G$ the linear group, transitivity is
-decided by the finite-dimensional **infinitesimal linear symmetry algebra**
+**The computable case (linear $G = GL(n)$).** For the *declared* group the linear
+group, transitivity is decided by the finite-dimensional **infinitesimal linear
+symmetry algebra**
 
 $$\mathfrak a(L) \;=\; \{\, A \in \mathfrak{gl}(n) \;:\; DL(\theta)\,A\,\theta = 0
 \ \text{ for all } \theta \in \Theta \,\},$$
 
 computed by a null-space (rank) calculation. The orbit of $\exp\mathfrak a(L)$
 through $\theta$ has tangent space $\{A\theta : A \in \mathfrak a(L)\}$, so
+*locally*
 
-$$F \text{ is a continuous linear-symmetry orbit} \iff
+$$F \text{ is a single } GL(n)\text{-orbit through } \theta \iff
 \dim\operatorname{span}\{A\theta : A \in \mathfrak a(L)\} = \dim F.$$
 
-**The three kinds of law-surviving ambiguity** (exact instances, verified):
+**Three kinds of law-surviving ambiguity** (exact instances, verified):
 
 | $L$ | $\dim \mathfrak a(L)$ | fibers | reading |
 |---|---:|---|---|
-| $x^2+y^2$ | 1 | circles | continuous symmetry (rotation); fiber $=$ orbit |
-| $xy$ | 1 | hyperbolas | continuous symmetry (scaling); fiber $=$ orbit |
-| $x^3+y^3$ | 0 | cubic curves | **accidental** — no continuous linear symmetry |
-| $(\eta+\delta,\ \eta\delta)$ | 0 | $\mathbb Z/2$ orbits | **discrete** symmetry only (the swap) |
+| $x^2+y^2$ | 1 | circles | **continuous** $GL(2)$ symmetry (rotation) |
+| $xy$ | 1 | hyperbolas | **continuous** $GL(2)$ symmetry (scaling) |
+| $(\eta+\delta,\ \eta\delta)$ | 0 | $\mathbb Z/2$ orbits | **discrete** symmetry (the swap) |
+| $x^3+y^3$ | 0 | cubic curves | no **linear** symmetry |
 
-So law-surviving ambiguity comes in three structurally different kinds: a
-**continuous symmetry** ($\mathfrak a(L)$ spans the fiber), a **discrete
-symmetry** (an isolated finite orbit), or an **accidental** degeneracy (no
-declared symmetry — the continuity is a coordinate artifact). Only the first two
-earn the word "symmetry"; the third is a generic coincidence.
+Only the first two earn the word "symmetry" *within* $GL(n)$.
+
+> **Not "no symmetry" — no *linear* symmetry.** $\mathfrak a(L)=0$ is a statement
+> about $GL(n)$ only, and a non-linear continuous symmetry may still exist. For
+> example $L(x,y)=y-x^3$ has $\mathfrak a(L)=0$, yet
+> $(x,y)\mapsto(x+t,\;y+3x^2t+3xt^2+t^3)$ preserves $L$ — a genuine one-parameter
+> symmetry that is *quadratic*, hence outside $GL(2)$. Indeed, by the trap above,
+> *every* rank-one fiber is locally an orbit of a (generally non-linear) tangent
+> flow. So "no linear symmetry" is only ever accidental **relative to the declared
+> group**.
 
 **Remark (finite-dimensional transverse structure).** A stronger, *transverse*
 condition is that the kernel distribution be a **Lie foliation** (Molino): it
