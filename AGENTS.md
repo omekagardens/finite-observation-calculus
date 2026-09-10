@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (37 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (40 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -44,6 +44,7 @@ docs/10-locality-and-access.md     locality vs global access; the access trichot
 docs/11-certification-dichotomy.md the certification theorem (margin form; radius)
 docs/12-nonlinear-symmetry.md      declared generators; the rank-one symmetry theorem
 docs/13-empirical-protocol.md      the probe-audit protocol (margin + sample budget)
+docs/14-certificate-toolkit.md     exact, machine-checkable verdict certificates
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -51,7 +52,8 @@ src/foc/summaries.py               predictive equivalence, minimal summaries
 src/foc/geometry.py                the two-kinds-of-ambiguity example (geometry vs sampling density)
 src/foc/forgetting.py              coarse-graining (sum of maps) vs coherent recombination
 src/foc/confidence.py              Clopper-Pearson, marginal/conditional, separation budgets
-src/foc/ambiguity.py               the general dichotomy: annihilator, linear symmetry, collapse
+src/foc/ambiguity.py               the general dichotomy: annihilator, symmetry, collapse, protocol
+src/foc/certificate.py             exact, machine-checkable verdict certificates
 tests/                             stdlib unittest suite, one file per module
 ```
 

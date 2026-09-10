@@ -11,10 +11,13 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/11`: the certification dichotomy (margin form; certification radius).
 - `docs/12`: nonlinear symmetry (declared generators; the rank-one theorem).
 - `docs/13`: the empirical probe-audit protocol (margin + sample budget).
+- `docs/14`: the certificate toolkit (exact, machine-checkable verdicts).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,
   `l_inf_erosion_rate`, `llm_probe_audit`.
+- `src/foc/certificate.py`: `build_certificate`, `verify_certificate`, `to_wire`,
+  `from_wire`, `verify_wire`.
 
 ## Open tracks
 
@@ -36,9 +39,10 @@ items:
 (probe directions and separations estimated from held-out data), which needs a
 model and a data path outside this zero-dependency package.
 
-### T3 — Certificate toolkit
-Machine-checkable exact certificates per verdict (separated / channel-limited /
-law-surviving) plus a verifier; ties to the upstream QR-01 wire schema.
+### T3 — Certificate toolkit  *(done: `docs/14`, `src/foc/certificate.py`)*
+Exact certificates per verdict plus an independent verifier and a JSON wire form
+(QR-01 style). Residual: a batch `verify` that checks a *set* of certificates and
+reports the nesting consistently across many features.
 
 ### T4 — Cross-domain exact-witness zoo
 One small exact module + doc + test each: causal observational equivalence;

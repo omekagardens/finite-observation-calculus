@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "src
 
 from fractions import Fraction
 
+from foc import linalg as la
 from foc import instruments as ins
 from foc import schedule
 from foc import summaries
@@ -18,6 +19,7 @@ from foc import forgetting
 from foc import geometry
 from foc import confidence
 from foc import ambiguity
+from foc import certificate
 
 
 def fmt_matrix(m):
@@ -154,6 +156,22 @@ def main():
         for r in ambiguity.certify_audit(margin, 100, 10):
             print(f"    {r['feature']:22} {r['model']:11} sep {r['sep_declared']}/{r['sep_full']}"
                   f"  {r['verdict']:14} certified={r['certified']} min_n={r['min_samples']}")
+    print()
+
+    # 12. Machine-checkable certificates (build / verify / tamper)
+    hdr("12. Machine-checkable certificates")
+    P0 = la.mat([[1, 0], [0, 0]])
+    P1 = la.mat([[0, 0], [0, 1]])
+    h = Fraction(1, 2)
+    Qp = la.mat([[h, h], [h, h]])
+    Qm = la.mat([[h, -h], [-h, h]])
+    cert = certificate.build_certificate(ambiguity.X, [P0, P1], [P0, P1, Qp, Qm])
+    print("  label:", cert["label"], "| witness:", cert["witness"])
+    print("  verify:", certificate.verify_certificate(cert))
+    tampered = dict(cert)
+    tampered["label"] = "separated"
+    print("  tampered label -> verify:", certificate.verify_certificate(tampered))
+    print("  wire round-trip verify:", certificate.verify_wire(certificate.to_wire(cert)))
     print()
 
 
