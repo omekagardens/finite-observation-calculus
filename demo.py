@@ -120,6 +120,13 @@ def main():
           ambiguity.collapses(Fraction(1, 4), Fraction(1, 8)))
     print()
 
+    # 8. Probe audit (LLM-style)
+    hdr("8. Probe audit (LLM-style): which features are readable?")
+    print(f"  {'feature':24} {'model':12} {'verdict':16} action")
+    for r in ambiguity.llm_probe_audit():
+        print(f"  {r['feature']:24} {r['model']:12} {r['verdict']:16} {r['action']}")
+    print()
+
 
 if __name__ == "__main__":
     main()

@@ -68,6 +68,11 @@ global charge.**
 *One-qubit instance (`08`, `03`):* accessible $\{Z\}$ leaves $A = \operatorname{span}\{X\}$
 (the coherence), channel-limited once $X$ is admitted.
 
+`ambiguity.llm_probe_audit()` (demo section 8) runs this audit end to end on a
+two-site representation: a single-site feature is **separated**, a cross-site
+correlation is **channel-limited** under joint access and **law-surviving** when
+joint probes are inadmissible — the decision procedure of §5, made runnable.
+
 ## 3. The geometric face: local homogeneity is free, global is holonomy
 
 The sharpest locality/global phenomenon is structural, and it is why §2 of `09`

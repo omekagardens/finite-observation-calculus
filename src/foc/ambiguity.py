@@ -190,3 +190,48 @@ def two_qubit_locality():
         "dim_local": annihilator_dim(one_body, traceless),
         "dim_joint": annihilator_dim(one_body + pairs, traceless),
     }
+
+
+def llm_probe_audit():
+    """An LLM-style probe audit on a two-site toy representation (``docs/10`` §5).
+
+    The representation is a two-site residual pair. Probe families, coarse to
+    fine: ``"local"`` reads one site at a time; ``"joint"`` adds cross-site
+    readouts. A measurement ``model`` says whether joint probes are admissible.
+
+    For each **feature** (a difference between two representation states) the
+    audit returns a verdict and the action it licenses:
+
+    - ``separated`` — a declared probe reads it now;
+    - ``channel-limited`` — a *richer* declared probe reads it: build one;
+    - ``law-surviving`` — no declared probe reads it: stop, it is not in the
+      record.
+
+    This is the ``docs/10`` §5 decision procedure: a failed probe is ambiguous
+    between "get a better probe" and "not there", and the audit says which.
+    """
+    def op(a, b):
+        return la.kron(a, b)
+
+    local = [op(X, I2), op(Z, I2), op(I2, X), op(I2, Z)]
+    joint = local + [op(a, b) for a in (X, Z) for b in (X, Z)]
+    families = {"open": [local, joint], "local-only": [local]}
+    features = [("site-A logit", op(Z, I2)), ("cross-site correlation", op(Z, Z))]
+
+    rows = []
+    for model, fams in families.items():
+        for name, delta in features:
+            idx = probe_audit(delta, fams)
+            if idx == 0:
+                verdict, action = "separated", "read it with the current probe"
+            elif idx is not None:
+                verdict, action = "channel-limited", "build a richer probe"
+            else:
+                verdict, action = "law-surviving", "stop: not in the record"
+            rows.append({
+                "feature": name,
+                "model": model,
+                "verdict": verdict,
+                "action": action,
+            })
+    return rows

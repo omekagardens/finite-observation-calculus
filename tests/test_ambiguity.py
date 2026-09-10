@@ -65,6 +65,15 @@ class TestAmbiguity(unittest.TestCase):
         # ...or never, if only diagonal probes are available -> law-surviving
         self.assertIsNone(ambiguity.probe_audit(ambiguity.X, [[P0, P1]]))
 
+    def test_llm_probe_audit(self):
+        rows = {(r["feature"], r["model"]): r["verdict"] for r in ambiguity.llm_probe_audit()}
+        # a local feature reads immediately
+        self.assertEqual(rows[("site-A logit", "open")], "separated")
+        # a cross-site feature needs a joint probe (channel-limited)...
+        self.assertEqual(rows[("cross-site correlation", "open")], "channel-limited")
+        # ...but if joint probes are inadmissible it is law-surviving
+        self.assertEqual(rows[("cross-site correlation", "local-only")], "law-surviving")
+
     def test_linear_symmetry_algebra(self):
         pts = grid(2, [-2, -1, 1, 2])
         # rotation and scaling are continuous linear symmetries
