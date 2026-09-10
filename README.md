@@ -49,7 +49,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 - **Distortion** — the collapse is sharp at `2e = d`, with a matching non-asymptotic rate `n* = Θ((d−2e)⁻²log(1/δ))`.
 - **One-sided decidability** — with the model in hand the trichotomy is a finite rank computation costing no experiments; from data alone the resolvable labels are certifiable but the law-surviving label is *not*. **Channel-limited ambiguity is a statement about the data; law-surviving ambiguity is a statement about the model.**
 
-These two documents are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. A runnable implementation of the annihilator/rank computation is in progress.
+`docs/10-locality-and-access.md` reads the dichotomy as a theory of **access**: it splits the classical local/global binary into *scope* (channel-limited) and *observability* (law-surviving), shows the annihilator is exactly the nonlocal content (one-body access on two qubits leaves a 9-dimensional invisible sector = the two-body correlations), and identifies holonomy as the local-to-global obstruction.
+
+These documents (`08`–`10`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. A runnable implementation of the annihilator/rank computation is in progress.
 
 ---
 
@@ -90,7 +92,8 @@ finite-observation-calculus/
 │   ├── 06-confidence.md
 │   ├── 07-separation-and-distortion.md
 │   ├── 08-ambiguity-dichotomy.md        # the general dichotomy (synthesis)
-│   └── 09-decidability.md               # integrability, distortion, one-sided decidability
+│   ├── 09-decidability.md               # integrability, distortion, one-sided decidability
+│   └── 10-locality-and-access.md        # locality vs global access; the access trichotomy
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -98,7 +101,8 @@ finite-observation-calculus/
 │   ├── summaries.py            # predictive equivalence, minimal summaries
 │   ├── geometry.py             # the two-kinds-of-ambiguity example
 │   ├── forgetting.py           # coarse-graining (sum of maps) vs coherent recombination
-│   └── confidence.py           # binomial intervals, budgets, distortion
+│   ├── confidence.py           # binomial intervals, budgets, distortion
+│   └── ambiguity.py            # the general dichotomy: annihilator, symmetry, collapse
 └── tests/                      # stdlib unittest suite
 ```
 

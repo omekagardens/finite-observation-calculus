@@ -17,6 +17,7 @@ from foc import summaries
 from foc import forgetting
 from foc import geometry
 from foc import confidence
+from foc import ambiguity
 
 
 def fmt_matrix(m):
@@ -103,6 +104,20 @@ def main():
     for r in confidence.bv_table():
         print(f"{r['name']:18} {str(r['D']):>8} {str(r['e']):>10} {str(r['D_e']):>8} "
               f"{str(r['slack']):>10} {str(r['score']):>8}  {'yes' if r['sufficient'] else 'no'}")
+    print()
+
+    # 7. The general dichotomy: annihilator classification and locality
+    hdr("7. The general dichotomy (annihilator / locality)")
+    qc = ambiguity.qubit_coherence()
+    print("  qubit coherence X:  dim invisible (Z only) =", qc["dim_accessible"],
+          "-> (Z, X) =", qc["dim_completed"])
+    print("  classify X:  open rules ->", qc["class_open"],
+          "| X forbidden ->", qc["class_closed"])
+    loc = ambiguity.two_qubit_locality()
+    print("  two qubits:  local one-body access leaves dim", loc["dim_local"],
+          "invisible (= two-body correlations); joint access ->", loc["dim_joint"])
+    print("  distortion e=d/2 collapses separation d:",
+          ambiguity.collapses(Fraction(1, 4), Fraction(1, 8)))
     print()
 
 
