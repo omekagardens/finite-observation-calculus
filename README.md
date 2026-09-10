@@ -39,6 +39,20 @@ An observation is a *lossy trace* of an underlying state or structure. The gap b
 
 ---
 
+## The general result behind them
+
+The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy.md`). Fix a declared observation class; then every pair of worlds is exactly one of **separated**, **channel-limited**, or **law-surviving**, and the law-surviving case is the *annihilator* of the completed effect algebra — physically, the invisible sector of a superselection rule; in parametric families, the gauge orbit of the law map.
+
+`docs/09-decidability.md` develops the consequences:
+
+- **Integrability** — a continuous ambiguity is a genuine *symmetry* exactly when its fibers are homogeneous (a Lie foliation, constant structure functions); otherwise it is a foliation, not a group orbit.
+- **Distortion** — the collapse is sharp at `2e = d`, with a matching non-asymptotic rate `n* = Θ((d−2e)⁻²log(1/δ))`.
+- **One-sided decidability** — with the model in hand the trichotomy is a finite rank computation costing no experiments; from data alone the resolvable labels are certifiable but the law-surviving label is *not*. **Channel-limited ambiguity is a statement about the data; law-surviving ambiguity is a statement about the model.**
+
+These two documents are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. A runnable implementation of the annihilator/rank computation is in progress.
+
+---
+
 ## Quick start
 
 No dependencies — Python 3.9+ standard library only.
@@ -74,7 +88,9 @@ finite-observation-calculus/
 │   ├── 04-minimal-summaries.md
 │   ├── 05-forgetting.md
 │   ├── 06-confidence.md
-│   └── 07-separation-and-distortion.md
+│   ├── 07-separation-and-distortion.md
+│   ├── 08-ambiguity-dichotomy.md        # the general dichotomy (synthesis)
+│   └── 09-decidability.md               # integrability, distortion, one-sided decidability
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -98,6 +114,7 @@ Every number in this repository is a rational number (`fractions.Fraction`), nev
 
 - Not a claim that measurement *never* suffices. It is a collection of exact counterexamples that refute the *universal* claim that measurement *always* suffices, plus a taxonomy of *why* it fails when it does.
 - Not a new learning algorithm. It is a set of precise, transferable *diagnostics* and *limits* for algorithms you already have.
+- **Not new mathematics.** The theory notes (`docs/08`, `docs/09`) are an exact *synthesis* of known results — identifiability, gauge/Lie-foliation theory, Le Cam testing. The contribution is the unified framing, the exact witnesses, and the decidability reading, not new theorems.
 - Not tied to any interpretation of probability, quantum mechanics, or computation. The classical case (probability vectors, stochastic maps) is a fully contained special case of the same notation.
 
 ---

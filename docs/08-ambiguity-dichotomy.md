@@ -235,16 +235,22 @@ converts resolvable pairs into irreducible ones**. As with the rest of the
 repository, the value is a precise synthesis with exact witnesses, not a new
 theorem.
 
-## 10. Where a genuinely new theorem could live
+## 10. The three results this exposes
 
-- A *global* criterion for when the fiber is an orbit: when does the annihilator
-  $\ker DL(\theta_0)$ integrate to a group action (the parametric analogue of a
-  commutant), and when is the ambiguity only discrete? §4 settles the linear case;
-  the nonlinear integrability is open.
-- A tight, non-asymptotic rate for the distortion-induced collapse (§6.3), with a
-  matching lower bound.
-- An effective decision procedure: given the effect algebra, decide separated /
-  channel-limited / law-surviving by a rank computation — §4 makes this a finite
-  linear-algebra test; the open part is the *cost* in experiments to certify it.
+The sharp clause of §4 is developed in
+**[09 — Decidability, distortion, and the integrability of ambiguity](09-decidability.md)**:
 
-**Back to** [README](../README.md).
+- **Integrability** (§2 there): a continuous ambiguity is a genuine *symmetry*
+  exactly when its fibers are homogeneous — a Lie foliation with constant
+  structure functions; otherwise it is a foliation, not a group orbit.
+- **Distortion** (§3): the collapse threshold $2e=d$ is exact, with
+  $n^\* = \Theta((d-2e)^{-2}\log(1/\delta))$ and matching bounds.
+- **Certification** (§4): the trichotomy is decidable by a rank computation given
+  the model, but from data it is **one-sidedly** decidable — the resolvable labels
+  are certifiable, the law-surviving label is not.
+
+What remains genuinely open (`09` §7): an algebraic criterion for homogeneous
+ambiguity; the exact collapse constant; a lower bound making the certification
+asymmetry a theorem under a formal model of certifying test.
+
+**Next:** [09 — Decidability, distortion, and the integrability of ambiguity](09-decidability.md).
