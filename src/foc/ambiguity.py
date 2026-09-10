@@ -114,6 +114,29 @@ def linear_symmetry_dim(jacobian, points, n):
     return n * n - _rank(rows)
 
 
+def symmetry_examples():
+    """The continuous / discrete / accidental trichotomy of ``docs/09`` §2.
+
+    Returns ``(name, dim_a_L, kind)`` for four law maps, with ``a(L)`` computed
+    from a finite generic grid of sample points. ``dim a(L) = 0`` means no
+    continuous linear symmetry: the ambiguity is either discrete (a finite
+    orbit) or accidental (a generic coincidence).
+    """
+    pts = [(Fraction(a), Fraction(b)) for a in (-2, -1, 1, 2) for b in (-2, -1, 1, 2)]
+    pts_nn = [(Fraction(a), Fraction(b)) for a in (0, 1, 2, 3) for b in (0, 1, 2, 3)]
+    cases = [
+        ("x^2+y^2", lambda t: [[2 * t[0], 2 * t[1]]], pts, "continuous (rotation)"),
+        ("x*y", lambda t: [[t[1], t[0]]], pts, "continuous (scaling)"),
+        ("x^3+y^3", lambda t: [[3 * t[0] ** 2, 3 * t[1] ** 2]], pts, "accidental"),
+        ("(eta+delta, eta*delta)",
+         lambda t: [[Fraction(1), Fraction(1)], [t[1], t[0]]], pts_nn, "discrete (Z/2)"),
+    ]
+    return [
+        (name, linear_symmetry_dim(jac, grid, 2), kind)
+        for name, jac, grid, kind in cases
+    ]
+
+
 def distortion_separation(d, e):
     """Minimax separation under distortion: ``max(d - 2e, 0)`` (``docs/09`` Prop 3.1)."""
     d = la.frac(d)

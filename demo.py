@@ -127,6 +127,13 @@ def main():
         print(f"  {r['feature']:24} {r['model']:12} {r['verdict']:16} {r['action']}")
     print()
 
+    # 9. Symmetry of an ambiguity: continuous / discrete / accidental
+    hdr("9. Is the ambiguity a symmetry? (linear symmetry algebra a(L))")
+    print(f"  {'law map L':26} {'dim a(L)':>8}  kind")
+    for name, dim, kind in ambiguity.symmetry_examples():
+        print(f"  {name:26} {dim:>8}  {kind}")
+    print()
+
 
 if __name__ == "__main__":
     main()

@@ -96,6 +96,13 @@ class TestAmbiguity(unittest.TestCase):
             0,
         )
 
+    def test_symmetry_examples(self):
+        rows = {name: (dim, kind) for name, dim, kind in ambiguity.symmetry_examples()}
+        self.assertEqual(rows["x^2+y^2"][0], 1)      # continuous
+        self.assertEqual(rows["x*y"][0], 1)          # continuous
+        self.assertEqual(rows["x^3+y^3"][0], 0)      # accidental
+        self.assertEqual(rows["(eta+delta, eta*delta)"][0], 0)  # discrete only
+
     def test_distortion_collapse(self):
         self.assertEqual(ambiguity.distortion_separation(Fraction(1, 4), Fraction(1, 16)),
                          Fraction(1, 8))
