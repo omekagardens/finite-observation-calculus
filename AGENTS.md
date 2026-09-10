@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (40 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (43 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -45,6 +45,7 @@ docs/11-certification-dichotomy.md the certification theorem (margin form; radiu
 docs/12-nonlinear-symmetry.md      declared generators; the rank-one symmetry theorem
 docs/13-empirical-protocol.md      the probe-audit protocol (margin + sample budget)
 docs/14-certificate-toolkit.md     exact, machine-checkable verdict certificates
+docs/15-cross-domain-zoo.md        exact witnesses (causal / conformal / partial-ID)
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -54,6 +55,7 @@ src/foc/forgetting.py              coarse-graining (sum of maps) vs coherent rec
 src/foc/confidence.py              Clopper-Pearson, marginal/conditional, separation budgets
 src/foc/ambiguity.py               the general dichotomy: annihilator, symmetry, collapse, protocol
 src/foc/certificate.py             exact, machine-checkable verdict certificates
+src/foc/crossdomain.py             cross-domain exact witnesses
 tests/                             stdlib unittest suite, one file per module
 ```
 

@@ -20,6 +20,7 @@ from foc import geometry
 from foc import confidence
 from foc import ambiguity
 from foc import certificate
+from foc import crossdomain
 
 
 def fmt_matrix(m):
@@ -172,6 +173,20 @@ def main():
     tampered["label"] = "separated"
     print("  tampered label -> verify:", certificate.verify_certificate(tampered))
     print("  wire round-trip verify:", certificate.verify_wire(certificate.to_wire(cert)))
+    print()
+
+    # 13. Cross-domain exact-witness zoo
+    hdr("13. Cross-domain exact-witness zoo")
+    c = crossdomain.causal_observational_equivalence()
+    print("  causal: same observational law?", c["same_observational_law"],
+          "| P(Z|do X=1): chain", c["chain_P_Z_given_do_X1"], "fork", c["fork_P_Z_given_do_X1"])
+    cf = crossdomain.conformal_marginal_vs_conditional()
+    print("  conformal: marginal", cf["marginal_coverage"], "(ok?", cf["marginal_ok"],
+          ") | conditional stratum-1", cf["conditional_coverage_stratum1"])
+    pid = crossdomain.partial_identification()
+    print("  partial ID: E[Y] in", pid["identified_set"],
+          "| inside ambiguous?", pid["inside_is_ambiguous"],
+          "| outside infeasible?", pid["outside_is_infeasible"])
     print()
 
 

@@ -59,7 +59,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/14-certificate-toolkit.md` makes the verdicts portable: each label carries an exact certificate (a witness for the resolvable labels; the full algebra for law-surviving) that a verifier re-checks independently, in a JSON wire form.
 
-These documents (`08`–`14`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/15-cross-domain-zoo.md` collects three exact witnesses of the same phenomenon in causal inference, conformal prediction, and partial identification.
+
+These documents (`08`–`15`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -106,7 +108,8 @@ finite-observation-calculus/
 │   ├── 11-certification-dichotomy.md    # the certification theorem (margin form)
 │   ├── 12-nonlinear-symmetry.md         # declared generators; the rank-one theorem
 │   ├── 13-empirical-protocol.md         # the probe-audit protocol (margin + sample budget)
-│   └── 14-certificate-toolkit.md        # exact, machine-checkable verdict certificates
+│   ├── 14-certificate-toolkit.md        # exact, machine-checkable verdict certificates
+│   └── 15-cross-domain-zoo.md           # exact witnesses (causal / conformal / partial-ID)
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -116,7 +119,8 @@ finite-observation-calculus/
 │   ├── forgetting.py           # coarse-graining (sum of maps) vs coherent recombination
 │   ├── confidence.py           # binomial intervals, budgets, distortion
 │   ├── ambiguity.py            # the general dichotomy: annihilator, symmetry, collapse
-│   └── certificate.py          # exact, machine-checkable verdict certificates
+│   ├── certificate.py          # exact, machine-checkable verdict certificates
+│   └── crossdomain.py          # cross-domain exact witnesses (causal / conformal / partial-ID)
 └── tests/                      # stdlib unittest suite
 ```
 

@@ -12,6 +12,7 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/12`: nonlinear symmetry (declared generators; the rank-one theorem).
 - `docs/13`: the empirical probe-audit protocol (margin + sample budget).
 - `docs/14`: the certificate toolkit (exact, machine-checkable verdicts).
+- `docs/15`: cross-domain witness zoo (causal / conformal / partial-ID).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,
@@ -44,9 +45,10 @@ Exact certificates per verdict plus an independent verifier and a JSON wire form
 (QR-01 style). Residual: a batch `verify` that checks a *set* of certificates and
 reports the nesting consistently across many features.
 
-### T4 — Cross-domain exact-witness zoo
-One small exact module + doc + test each: causal observational equivalence;
-conformal marginal-vs-conditional; partial identification.
+### T4 — Cross-domain witness zoo  *(done: `docs/15`, `src/foc/crossdomain.py`)*
+Three exact witnesses (causal observational equivalence; conformal marginal vs
+conditional; partial identification). Residual: more domains / larger examples
+(causal bounds, IV, differential privacy), if wanted.
 
 ### T5 — Formalization (Lean)
 The finite-dimensional core is exact rational, hence Lean-friendly; machine-check
