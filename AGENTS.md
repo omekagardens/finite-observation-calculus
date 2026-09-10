@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (35 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (37 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -43,6 +43,7 @@ docs/09-decidability.md            integrability / distortion rate / one-sided d
 docs/10-locality-and-access.md     locality vs global access; the access trichotomy
 docs/11-certification-dichotomy.md the certification theorem (margin form; radius)
 docs/12-nonlinear-symmetry.md      declared generators; the rank-one symmetry theorem
+docs/13-empirical-protocol.md      the probe-audit protocol (margin + sample budget)
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample

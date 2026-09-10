@@ -10,9 +10,11 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/10`: locality and access.
 - `docs/11`: the certification dichotomy (margin form; certification radius).
 - `docs/12`: nonlinear symmetry (declared generators; the rank-one theorem).
+- `docs/13`: the empirical probe-audit protocol (margin + sample budget).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
-  `l_inf_separation`, `l_inf_erosion_rate`, `llm_probe_audit`.
+  `feature_separation`, `certify_audit`, `l_inf_separation`,
+  `l_inf_erosion_rate`, `llm_probe_audit`.
 
 ## Open tracks
 
@@ -28,10 +30,11 @@ items:
 - a criterion for the **minimal symmetry degree**;
 - decidability of the foliation case from finitely many derivatives.
 
-### T2 — Empirical protocol
-Instantiate the certifier (`docs/11`) on a real probe family and an empirical
-measurement model: the rank/annihilator audit on activations, plus margin-vs-radius
-finite-sample certification. The current `llm_probe_audit()` is the toy stand-in.
+### T2 — Empirical protocol  *(documented in `docs/13`; real-model run open)*
+`docs/13` specifies the protocol and instantiates it exactly on the two-site model
+(`ambiguity.certify_audit`). Open: run it against a *real* model's activations
+(probe directions and separations estimated from held-out data), which needs a
+model and a data path outside this zero-dependency package.
 
 ### T3 — Certificate toolkit
 Machine-checkable exact certificates per verdict (separated / channel-limited /

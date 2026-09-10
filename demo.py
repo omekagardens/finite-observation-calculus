@@ -147,6 +147,15 @@ def main():
           "(no linear; quadratic symmetry)")
     print()
 
+    # 11. Empirical probe-audit protocol (finite-sample certification)
+    hdr("11. Empirical probe-audit protocol (margin + sample budget)")
+    for margin in (Fraction(2), Fraction(5)):
+        print(f"  margin t={margin}, n=100, threshold K=10:")
+        for r in ambiguity.certify_audit(margin, 100, 10):
+            print(f"    {r['feature']:22} {r['model']:11} sep {r['sep_declared']}/{r['sep_full']}"
+                  f"  {r['verdict']:14} certified={r['certified']} min_n={r['min_samples']}")
+    print()
+
 
 if __name__ == "__main__":
     main()

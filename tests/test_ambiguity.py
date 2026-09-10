@@ -123,6 +123,27 @@ class TestAmbiguity(unittest.TestCase):
         J = jac(th)[0]
         self.assertEqual(J[0] * Xv[0] + J[1] * Xv[1], 0)   # DL . X = 0
 
+    def test_feature_separation(self):
+        def op(a, b):
+            return la.kron(a, b)
+        local = [op(ambiguity.X, ambiguity.I2), op(ambiguity.Z, ambiguity.I2)]
+        self.assertEqual(ambiguity.feature_separation(op(ambiguity.Z, ambiguity.I2), local), 4)
+        self.assertEqual(ambiguity.feature_separation(op(ambiguity.Z, ambiguity.Z), local), 0)
+
+    def test_certify_audit(self):
+        # margin below the separation: full resolution
+        rows = {(r["feature"], r["model"]): r
+                for r in ambiguity.certify_audit(Fraction(2), 100, 10)}
+        self.assertEqual(rows[("site-A logit", "open")]["verdict"], "separated")
+        self.assertEqual(rows[("cross-site correlation", "open")]["verdict"], "channel-limited")
+        self.assertEqual(rows[("cross-site correlation", "local-only")]["verdict"], "law-surviving")
+        self.assertEqual(rows[("site-A logit", "open")]["sep_declared"], Fraction(4))
+        self.assertTrue(rows[("site-A logit", "open")]["certified"])
+        self.assertEqual(rows[("site-A logit", "open")]["min_samples"], 3)  # ceil(10/4)
+        # margin above the separation: nothing resolves (law-surviving to the margin)
+        verdicts = {r["verdict"] for r in ambiguity.certify_audit(Fraction(5), 100, 10)}
+        self.assertEqual(verdicts, {"law-surviving"})
+
     def test_distortion_collapse(self):
         self.assertEqual(ambiguity.distortion_separation(Fraction(1, 4), Fraction(1, 16)),
                          Fraction(1, 8))

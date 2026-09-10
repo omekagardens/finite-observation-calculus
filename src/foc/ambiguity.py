@@ -192,6 +192,66 @@ def symmetry_growth():
     return [(d, polynomial_symmetry_dim(jac, d, grid)) for d in (1, 2, 3, 4)]
 
 
+def feature_separation(delta, family):
+    """Separation of a feature ``delta`` under a probe family (``docs/13``).
+
+    The largest single-experiment readout difference the family can produce:
+    ``max_E |Tr(delta E)|``. Zero iff ``delta`` lies in the family's annihilator.
+    """
+    return max((abs(la.trace(la.mat_mul(delta, E))) for E in family), default=Fraction(0))
+
+
+def _ceil_div(a, b):
+    return -((-a) // b)
+
+
+def certify_audit(margin, n_samples, threshold):
+    """The empirical probe-audit protocol (``docs/13``).
+
+    Runs the two-site audit with a finite-sample budget. A margin-``margin``
+    verdict is *certified* iff ``n_samples * margin**2 >= threshold`` — the
+    rational certificate style of ``docs/07`` (``threshold`` encodes the
+    confidence, e.g. ``10`` for ``delta = 1/20``). Each row reports the separation
+    under the declared and full families, the margin-``t`` verdict, whether the
+    budget certifies it, and the samples needed (``ceil(threshold / t**2)``).
+    """
+    margin = la.frac(margin)
+    threshold = la.frac(threshold)
+
+    def op(a, b):
+        return la.kron(a, b)
+
+    local = [op(X, I2), op(Z, I2), op(I2, X), op(I2, Z)]
+    joint = local + [op(a, b) for a in (X, Z) for b in (X, Z)]
+    models = {"open": [local, joint], "local-only": [local]}
+    features = [("site-A logit", op(Z, I2)), ("cross-site correlation", op(Z, Z))]
+
+    min_samples = _ceil_div(threshold, margin * margin)
+    certified = la.frac(n_samples) * margin * margin >= threshold
+    rows = []
+    for model, fams in models.items():
+        declared, full = fams[0], fams[-1]
+        for name, delta in features:
+            s_declared = feature_separation(delta, declared)
+            s_full = feature_separation(delta, full)
+            if s_declared >= margin:
+                verdict = "separated"
+            elif s_full >= margin:
+                verdict = "channel-limited"
+            else:
+                verdict = "law-surviving"
+            rows.append({
+                "feature": name,
+                "model": model,
+                "sep_declared": s_declared,
+                "sep_full": s_full,
+                "verdict": verdict,
+                "certified": certified,
+                "min_samples": min_samples,
+            })
+    return rows
+
+
 def distortion_separation(d, e):
     """Minimax separation under distortion: ``max(d - 2e, 0)`` (``docs/09`` Prop 3.1)."""
     d = la.frac(d)
