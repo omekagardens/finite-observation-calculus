@@ -9,9 +9,10 @@ the content is their assembly into one calculus of *what is observable*.
 > Fix a declared observation class. Every two worlds are either **already
 > separated**, **channel-limited** (separated by a richer admissible observation),
 > or **law-surviving** (identical complete observable law). Law-surviving
-> ambiguity is exactly the *gauge orbit* of the law map; it is the only
-> unresolvable kind; and sufficient distortion converts channel-limited pairs
-> into law-surviving ones.
+> ambiguity is exactly the *annihilator* of the completed effect algebra —
+> physically, the invisible sector of a superselection rule; in parametric
+> families, the gauge orbit of the law map. It is the only unresolvable kind, and
+> sufficient distortion converts channel-limited pairs into law-surviving ones.
 
 ## 1. Worlds, experiments, and the law map
 
@@ -69,44 +70,62 @@ possibilities for the pair of booleans
 $\big[L_E(\theta_1)\!=\!L_E(\theta_2)\big]$, $\big[L_{E^\*}(\theta_1)\!=\!L_{E^\*}(\theta_2)\big]$).
 The substance is that cases 2 and 3 have the structural readings of §4–§6. $\square$
 
-## 4. Law-surviving ambiguity *is* gauge symmetry
+## 4. Law-surviving ambiguity is the annihilator — superselection and gauge
 
-Let a group $G$ act on $\Theta$. The law map is **$G$-invariant** when
-$L_{E^\*}(g\cdot\theta) = L_{E^\*}(\theta)$ for all $g \in G$.
+The fiber characterization of §2–3 has a concrete, computable form. Let $S$ be
+the real vector space of admissible *state differences* (e.g. traceless Hermitian
+operators, or the real symmetric subspace), and let $M_E \subseteq S^*$ be the
+span of the accessible effects viewed as linear functionals
+$\rho \mapsto \operatorname{Tr}(\rho E)$. Write $A_E := M_E^{\perp} \cap S$ for
+the **annihilator** of the accessible effects inside the state space.
 
-**Proposition.** If $L_{E^\*}$ is $G$-invariant then the orbit $G\cdot\theta$ lies
-inside the fiber $L_{E^\*}^{-1}(L_{E^\*}(\theta))$. If moreover $L_{E^\*}$ is
-injective on the quotient $\Theta/G$ (a *gauge fixing*), the inclusion is an
-equality:
+**Proposition (identification duality).**
+$$\theta_1 \approx_E \theta_2 \iff \rho_1 - \rho_2 \in A_E,
+\qquad \dim A_E = \dim S - \dim M_E.$$
 
-$$\theta_2 \approx_{E^\*} \theta_1 \iff \theta_2 \in G\cdot\theta_1.$$
+The dichotomy is therefore a nesting $A_{E^\*} \subseteq A_E$:
 
-*Proof.* Invariance gives orbit $\subseteq$ fiber. Injectivity on $\Theta/G$ gives
-fiber $\subseteq$ orbit. $\square$
+| case | condition |
+|---|---|
+| separated | $\rho_1-\rho_2 \notin A_E$ |
+| channel-limited | $\rho_1-\rho_2 \in A_E \setminus A_{E^\*}$ |
+| law-surviving | $\rho_1-\rho_2 \in A_{E^\*}$ |
 
-So **law-surviving ambiguity is precisely the gauge redundancy of the
-observable law.** This sharpens the taxonomy into two sub-kinds by the fiber's
-local dimension:
+*Proof.* $\theta_1 \approx_E \theta_2 \iff \operatorname{Tr}((\rho_1-\rho_2)E)=0$
+for every accessible effect $E \iff \rho_1-\rho_2 \perp M_E$; the dimension is
+rank–nullity. $\square$
 
-- **Discrete (symmetry) ambiguity** — $\ker DL_{E^\*}(\theta) = 0$ yet $L$ is
-  globally non-injective: an isolated orbit, e.g. a finite group action.
-- **Continuous (degenerate) ambiguity** — $\ker DL_{E^\*}(\theta) \neq 0$: a
-  positive-dimensional family of worlds sharing the law.
+> **Where the state space matters.** The annihilator must be taken *inside* the
+> admissible state space. With real symmetric qubit states, $\{Z,X\}$ spans the
+> traceless space ($\dim M_E=2$, $A_E=0$); on the *complex* Hermitian space its
+> annihilator is spanned by the antisymmetric $Y$ — but $Y$ is a difference of no
+> two real density matrices, so it costs nothing. Getting this wrong flips the
+> verdict.
 
-**Local identifiability.** For open $\Theta \subseteq \mathbb R^n$ and smooth
-$L$, the *infinitesimal* law-surviving directions at $\theta$ are
-$\ker DL_{E^\*}(\theta)$, and the identifiable functionals are exactly those
-$f$ whose gradient is orthogonal to it (equivalently, $\nabla f \in
-\operatorname{row} DL_{E^\*}(\theta)$). The number of identifiable directions is
-$\operatorname{rank} DL_{E^\*}(\theta)$.
+**Physical reading (superselection).** When $E^\*$ is closed under composition
+and adjoint — an *algebra of observables* — the annihilator $A_{E^\*}$ is the
+**invisible sector**: the coherences no admissible observable sees. For an
+algebra carrying a superselection rule, $A_{E^\*}$ is exactly the forbidden
+inter-sector coherence. **Law-surviving ambiguity is superselection structure.**
 
-*Instance.* The geometry family $\theta=(\eta,\delta)$ has
-$L(\eta,\delta) = (\eta+\delta,\ \eta\delta)$ (the elementary symmetric
-functions). $L$ is invariant under the $\mathbb Z/2$ swap $\eta
-\leftrightarrow \delta$, and injective on unordered pairs, so the fiber is
-the orbit — a **discrete** ambiguity. The Jacobian has rank $2$ at the flat
-point $(0,1)$, confirming the absence of a continuous degeneracy: no amount of
-data separates the swap, and no local perturbation can either.
+**Exact instances** (real symmetric qubit states, $\dim S=2$ traceless):
+
+| accessible effects | $\dim M_E$ | $\dim A_E$ | reading |
+|---|---:|---:|---|
+| $\{Z\}$ | 1 | 1 (span $X$) | the $X$-coherence; **channel-limited** once $X$ is allowed (`03`, kind 2) |
+| $\{Z,X\}$ | 2 | 0 | fully identifiable |
+| $\{Z\}$ closed (no $X$ allowed) | 1 | 1 | superselection: $|+\rangle,|-\rangle$ **law-surviving** |
+
+**Nonlinear / parametric realization (gauge).** When worlds are parameters
+$\theta$ and the law is a smooth $L$, the annihilator is replaced by the *kernel
+of the linearized law map*: the infinitesimal ambiguity at $\theta_0$ is
+$\ker DL(\theta_0)$, and the identifiable functionals are those orthogonal to it;
+globally the ambiguity is the fiber $L^{-1}(L(\theta_0))$. For the geometry family
+$L(\eta,\delta)=(\eta+\delta,\eta\delta)$ the fiber is *exactly* the $\mathbb Z/2$
+orbit $\{(\eta,\delta),(\delta,\eta)\}$ (verified), while $DL$ has full rank — a
+**discrete** ambiguity, an isolated gauge orbit rather than a continuous family.
+So **annihilator** (linear/algebraic) and **gauge orbit** (nonlinear/parametric)
+are the same clause in two settings.
 
 ## 5. Sufficiency is question-relative; nothing proper is universal
 
@@ -165,7 +184,7 @@ resolution).
 
 | Result | Reading in the dichotomy |
 |---|---|
-| `03` two-kinds taxonomy | The dichotomy itself; §4 is the gauge reading of kind 1 |
+| `03` two-kinds taxonomy | The dichotomy itself; §4 is the annihilator reading of kind 1 (superselection) |
 | `04` minimal summaries | §5: $L_E$ is the coarsest $E$-sufficient summary; question-relativity |
 | `05` forgetting vs recombination | §2: retaining the record strictly refines $\approx$ |
 | `06` marginal vs conditional | §5 in a stratum: the report event is not $E$-sufficient |
@@ -218,12 +237,14 @@ theorem.
 
 ## 10. Where a genuinely new theorem could live
 
-- A structural criterion for when $L_{E^\*}$ factors through a gauge group
-  (an analogue of a commutant for arbitrary observable algebras).
+- A *global* criterion for when the fiber is an orbit: when does the annihilator
+  $\ker DL(\theta_0)$ integrate to a group action (the parametric analogue of a
+  commutant), and when is the ambiguity only discrete? §4 settles the linear case;
+  the nonlinear integrability is open.
 - A tight, non-asymptotic rate for the distortion-induced collapse (§6.3), with a
   matching lower bound.
-- A completeness theorem: the three cases are the *only* ones for a declared
-  family, with an effective procedure to decide between them from finitely many
-  experiments.
+- An effective decision procedure: given the effect algebra, decide separated /
+  channel-limited / law-surviving by a rank computation — §4 makes this a finite
+  linear-algebra test; the open part is the *cost* in experiments to certify it.
 
 **Back to** [README](../README.md).
