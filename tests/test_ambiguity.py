@@ -39,6 +39,19 @@ class TestAmbiguity(unittest.TestCase):
             ambiguity.classify(la.mat([[1, 0], [0, -1]]), [P0, P1], [P0, P1]), "separated"
         )
 
+    def test_l_inf_separation(self):
+        # binary: matches max(d - 2e, 0) exactly
+        P = [Fraction(1, 2), Fraction(1, 2)]
+        Q = [Fraction(1, 4), Fraction(3, 4)]
+        self.assertEqual(ambiguity.l_inf_separation(P, Q, Fraction(1, 16)), Fraction(1, 8))
+        self.assertEqual(ambiguity.l_inf_separation(P, Q, Fraction(1, 8)), Fraction(0))
+        self.assertEqual(ambiguity.l_inf_erosion_rate(P, Q), 2)
+        # spread: four active components -> e erodes at rate 4, not 2
+        P4 = [Fraction(2, 5), Fraction(3, 10), Fraction(1, 5), Fraction(1, 10)]
+        Q4 = [Fraction(1, 5), Fraction(1, 5), Fraction(3, 10), Fraction(3, 10)]
+        self.assertEqual(ambiguity.l_inf_erosion_rate(P4, Q4), 4)
+        self.assertEqual(ambiguity.l_inf_separation(P4, Q4, Fraction(1, 20)), Fraction(1, 10))
+
     def test_probe_audit(self):
         P0 = la.mat([[1, 0], [0, 0]])
         P1 = la.mat([[0, 0], [0, 1]])

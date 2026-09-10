@@ -127,6 +127,34 @@ def collapses(d, e):
     return 2 * la.frac(e) >= la.frac(d)
 
 
+def l_inf_separation(P, Q, e):
+    """Minimax TV separation under per-outcome (``l_inf``) distortion ``e`` (``docs/09`` §3).
+
+    With ``A+ = sum_{P_i>Q_i} min(2e, P_i-Q_i)`` and symmetrically ``A-``, the
+    exact separation is ``d - min(A+, A-)`` where ``d = (1/2)||P-Q||_1``. This
+    equals ``distortion_separation(d, e)`` for binary laws and is smaller in
+    general (a spread separation erodes faster).
+    """
+    P = [la.frac(x) for x in P]
+    Q = [la.frac(x) for x in Q]
+    e = la.frac(e)
+    d = Fraction(1, 2) * sum(abs(P[i] - Q[i]) for i in range(len(P)))
+    a_pos = sum(min(2 * e, P[i] - Q[i]) for i in range(len(P)) if P[i] > Q[i])
+    a_neg = sum(min(2 * e, Q[i] - P[i]) for i in range(len(P)) if Q[i] > P[i])
+    return d - min(a_pos, a_neg)
+
+
+def l_inf_erosion_rate(P, Q):
+    """Small-``e`` erosion coefficient ``2*min(k+, k-)`` for the ``l_inf`` model.
+
+    The headline "rate two" of `docs/07` holds exactly when the separation is
+    *one-sided* (``min(k+, k-) = 1``): all binary laws, and any monotone shift.
+    """
+    kp = sum(1 for i in range(len(P)) if P[i] > Q[i])
+    kn = sum(1 for i in range(len(P)) if Q[i] > P[i])
+    return 2 * min(kp, kn)
+
+
 def qubit_coherence():
     """Accessible ``{Z}`` vs completed ``{Z, X}`` on a qubit.
 

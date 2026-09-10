@@ -139,11 +139,28 @@ $\log(1/\delta)/d^2 = 48$, same order with constant $\approx 0.81$. Distortion a
 $e = \tfrac18 = d/2$ collapses it ($\tilde d = 0$); at $e = \tfrac1{16}$ the
 effective separation is $\tilde d = \tfrac18$.
 
-**Per-outcome ($\ell^\infty$) variant.** If instead
-$\lVert R-P\rVert_\infty \le e$, the same segment argument gives
-$\tilde d = \max\!\big(d - 2e\,(d/\lVert P-Q\rVert_\infty),\,0\big) \ge \max(d-2e,0)$.
-So the repository's bound $D_e = \max(D-2e,0)$ is always *valid* and is exact
-whenever $d = \lVert P-Q\rVert_\infty$ (in particular for binary outcomes).
+**Per-outcome ($\ell^\infty$) variant (exact).** If instead
+$\lVert R-P\rVert_\infty \le e$, write $\Delta := P - Q$ and
+
+$$A_+ = \!\!\sum_{\Delta_i > 0}\!\! \min(2e, \Delta_i), \qquad
+A_- = \!\!\sum_{\Delta_i < 0}\!\! \min(2e, -\Delta_i).$$
+
+Then the minimax separation is $\tilde d_\infty(e) = d - \min(A_+, A_-)$, and the
+balls collide iff $2e \ge \lVert P-Q\rVert_\infty$.
+
+*Proof.* For any admissible pair, $z := \Delta - (P'-Q')$ satisfies
+$\sum_i z_i = 0$ (both laws are normalized) and $|z_i| \le 2e$, so
+$\lVert P'-Q'\rVert_1 \ge \lVert\Delta\rVert_1 - \sum_i|z_i|$; the balance
+constraint $\sum_i z_i = 0$ caps $\sum_i|z_i|$ at $2\min(A_+,A_-)$. Moving each
+component toward the other by $\min(2e, |\Delta_i|)$ on the smaller side attains
+it. $\square$
+
+Consequently the **erosion rate is $2\min(k_+,k_-)$**, where $k_\pm$ counts the
+positive / negative components of $\Delta$ (for $2e$ below the smallest
+$|\Delta_i|$). So the headline "rate two" of `docs/07` holds exactly for a
+**one-sided** separation ($\min(k_+,k_-)=1$) — every binary law and any monotone
+shift — while a *spread* separation erodes faster; the TV-ball model (Prop. 3.1)
+has rate two unconditionally.
 
 ## 4. Certification: the one-sided decidability theorem
 
@@ -227,8 +244,13 @@ ambiguity is refutable by data and when it is not.*
 - **Intrinsic symmetry, if any** (§2): the intrinsic question is ill-posed
   because every fiber is a local pseudogroup orbit; is there a canonical minimal
   group (analogue of a holonomy group) whose transitivity *is* intrinsic?
-- **Exact collapse constant** (§3): replace $\Theta$ by the exact minimax constant
-  for the $\ell^\infty$-ball model.
+- **Exact collapse constant** (§3): now **settled** for the separation — the
+  collision threshold ($2e \ge \lVert P-Q\rVert_\infty$, resp. $2e \ge d$ for TV)
+  and the erosion rate ($2\min(k_+,k_-)$, resp. $2$) are closed-form and
+  implemented (`ambiguity.l_inf_separation`, `l_inf_erosion_rate`). What remains
+  open is the exact **error-exponent constant** $c^\*$ in
+  $n^\* = (c^\* + o(1))\log(1/\delta)/\tilde d^2$ — the minimax Chernoff
+  information of the two balls, transcendental and with no closed form in general.
 - **Certification complexity** (§4): prove a lower bound showing that *no*
   structure-free test certifies law-surviving — turning the folklore into a
   theorem with a formal model of "certifying test."

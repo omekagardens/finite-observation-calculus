@@ -24,6 +24,8 @@ $$D_e = \max(D - 2e,\; 0) .$$
 
 The factor of two is the headline: a uniform distortion bound $e$ consumes the separation margin $D$ at **twice** its own size. Intuitively, two hypotheses can each drift toward the other by $e$, closing $2e$ of the gap.
 
+> **Scope.** $D_e = \max(D-2e,0)$ is exact when the separation is *one-sided* (all binary laws and any monotone shift). For a general law with a *spread* separation the per-outcome ($\ell^\infty$) erosion is faster — at rate $2\min(k_+,k_-)$ — while the total-variation model keeps rate two; see [`09` §3](09-decidability.md).
+
 ## 3. The exact census
 
 With $n = 65{,}536$, $m = 256$, and the ideal class distances $D$ below, the certificate resolves as:
