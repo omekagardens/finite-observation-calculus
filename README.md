@@ -61,7 +61,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/15-cross-domain-zoo.md` collects three exact witnesses of the same phenomenon in causal inference, conformal prediction, and partial identification.
 
-These documents (`08`–`15`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/16-model-run.md` runs the protocol end-to-end on a controlled model with a known feature encoding, scoring the audit's verdicts (separated / channel-limited / law-surviving) against ground truth — all exact.
+
+These documents (`08`–`16`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -109,7 +111,8 @@ finite-observation-calculus/
 │   ├── 12-nonlinear-symmetry.md         # declared generators; the rank-one theorem
 │   ├── 13-empirical-protocol.md         # the probe-audit protocol (margin + sample budget)
 │   ├── 14-certificate-toolkit.md        # exact, machine-checkable verdict certificates
-│   └── 15-cross-domain-zoo.md           # exact witnesses (causal / conformal / partial-ID)
+│   ├── 15-cross-domain-zoo.md           # exact witnesses (causal / conformal / partial-ID)
+│   └── 16-model-run.md                  # a controlled model run of the probe audit
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -120,7 +123,8 @@ finite-observation-calculus/
 │   ├── confidence.py           # binomial intervals, budgets, distortion
 │   ├── ambiguity.py            # the general dichotomy: annihilator, symmetry, collapse
 │   ├── certificate.py          # exact, machine-checkable verdict certificates
-│   └── crossdomain.py          # cross-domain exact witnesses (causal / conformal / partial-ID)
+│   ├── crossdomain.py          # cross-domain exact witnesses (causal / conformal / partial-ID)
+│   └── modelrun.py             # a controlled model run of the probe audit (exact)
 └── tests/                      # stdlib unittest suite
 ```
 

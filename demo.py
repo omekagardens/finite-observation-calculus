@@ -21,6 +21,7 @@ from foc import confidence
 from foc import ambiguity
 from foc import certificate
 from foc import crossdomain
+from foc import modelrun
 
 
 def fmt_matrix(m):
@@ -187,6 +188,14 @@ def main():
     print("  partial ID: E[Y] in", pid["identified_set"],
           "| inside ambiguous?", pid["inside_is_ambiguous"],
           "| outside infeasible?", pid["outside_is_infeasible"])
+    print()
+
+    # 14. A controlled model run (exact)
+    hdr("14. A controlled model run of the probe audit (exact)")
+    print(f"  {'feature':14} {'sep loc/joint':14} {'verdict':16} ground truth")
+    for r in modelrun.model_run():
+        print(f"  {r['feature']:14} {str(r['sep_local']) + '/' + str(r['sep_joint']):14}"
+              f" {r['verdict']:16} {r['ground_truth']} (correct={r['correct']})")
     print()
 
 
