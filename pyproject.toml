@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "finite-observation-calculus"
+version = "0.1.0"
+description = "A finite, exact calculus of records, observations, and inference for AI/inference applications"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "omekagardens" }]
+keywords = ["inference", "identifiability", "observation-equivalence", "calibration", "machine-learning"]
+dependencies = []
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
