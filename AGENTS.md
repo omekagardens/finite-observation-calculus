@@ -41,6 +41,7 @@ docs/07-separation-and-distortion.md  exact separation budgets under distortion
 docs/08-ambiguity-dichotomy.md     the general dichotomy (all of 03–07 as instances)
 docs/09-decidability.md            integrability / distortion rate / one-sided decidability
 docs/10-locality-and-access.md     locality vs global access; the access trichotomy
+docs/11-certification-dichotomy.md the certification theorem (margin form; radius)
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -65,7 +66,7 @@ This matters because the project's README cites the upstream `det_8_framework` a
 | `docs/03-ambiguity-taxonomy.md`, `geometry.py` | Order-geometry/density theme from the upstream program; **the exact η/δ factorization obstruction example is this project's own construction** | **Local synthesis** — do not attribute the specific formula to upstream |
 | `docs/06-confidence.md`, `confidence.py` (marginal/conditional) | Upstream RET doctrine (marginal vs conditional predictive support); the n=4 singleton construction is local | **Local synthesis** |
 | `docs/07-separation-and-distortion.md`, `confidence.py` (budgets) | Upstream "separation" theme (QR-06 / RET); the specific `slack = D − 2e − 2/m` certificate is local | **Local synthesis** |
-| `docs/08-ambiguity-dichotomy.md`, `docs/09-decidability.md`, `docs/10-locality-and-access.md` | This project's own assembly of the dichotomy from identifiability, gauge / Lie-foliation theory, and Le Cam testing; no direct upstream counterpart | **Local synthesis** — the general theorem and its consequences, marked as synthesis in the docs themselves |
+| `docs/08-ambiguity-dichotomy.md`, `docs/09-decidability.md`, `docs/10-locality-and-access.md`, `docs/11-certification-dichotomy.md` | This project's own assembly of the dichotomy from identifiability, gauge / Lie-foliation theory, and Le Cam testing; no direct upstream counterpart | **Local synthesis** — the general theorem and its consequences, marked as synthesis in the docs themselves |
 
 **Rule:** when extending or documenting the code, preserve this distinction. The record-model, equivalence/Z/X, summaries, and forgetting results are upstream-derived — keep them notationally aligned with `det_8_framework`. The ambiguity taxonomy, confidence, and separation-budget results are this project's own exact-ification of upstream *themes* — mark them as such rather than claiming upstream has the exact construction.
 

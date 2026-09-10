@@ -51,7 +51,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/10-locality-and-access.md` reads the dichotomy as a theory of **access**: it splits the classical local/global binary into *scope* (channel-limited) and *observability* (law-surviving), shows the annihilator is exactly the nonlocal content (one-body access on two qubits leaves a 9-dimensional invisible sector = the two-body correlations), and identifies holonomy as the local-to-global obstruction.
 
-These documents (`08`–`10`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. A runnable implementation of the annihilator/rank computation is in progress.
+`docs/11-certification-dichotomy.md` states the certification theorem formally: at any margin `t` the whole trichotomy is certifiable from data at cost `Θ(t⁻²log(1/δ))`, while the exact case is the non-certifiable singular limit `t→0` (certification radius `≍ (log(1/δ)/n)^{1/2}`).
+
+These documents (`08`–`11`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -83,6 +85,7 @@ finite-observation-calculus/
 ├── LICENSE                     # MIT
 ├── pyproject.toml
 ├── demo.py                     # runnable walkthrough of every result
+├── NEXT_STEPS.md               # open tracks (nonlinear symmetry, protocol, ...)
 ├── docs/
 │   ├── 01-record-model.md
 │   ├── 02-equivalence.md
@@ -93,7 +96,8 @@ finite-observation-calculus/
 │   ├── 07-separation-and-distortion.md
 │   ├── 08-ambiguity-dichotomy.md        # the general dichotomy (synthesis)
 │   ├── 09-decidability.md               # integrability, distortion, one-sided decidability
-│   └── 10-locality-and-access.md        # locality vs global access; the access trichotomy
+│   ├── 10-locality-and-access.md        # locality vs global access; the access trichotomy
+│   └── 11-certification-dichotomy.md    # the certification theorem (margin form)
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels

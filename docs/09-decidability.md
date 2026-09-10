@@ -187,31 +187,24 @@ trichotomy is *decidable*.
 
 **(b) Statistical certifiability.** Suppose only samples are available.
 
-**Theorem 4.1 (one-sided decidability).**
-1. "Separated" and "channel-limited" are **certifiable**: with
-   $n = \Theta(\tilde d^{-2}\log(1/\delta))$ samples (Theorem 3.2) a test outputs
-   the correct resolvable label with probability $\ge 1-\delta$.
-2. "Law-surviving" is **not finitely certifiable**: for every finite $n$ and every
-   $\delta < \tfrac12$ there is a channel-limited pair whose $n$-sample min-max
-   error exceeds $\delta$. No test separates the label "law-surviving" from
-   "channel-limited with an arbitrarily small completion-component."
-3. Consequently law-surviving is decidable **only structurally** — a certificate
-   must name the algebra $M_{E^\*}$ (equivalently the annihilator $A_{E^\*}$).
+**Theorem 4.1 (certification dichotomy).** Fix a margin $t>0$. With
+$n = \Theta(t^{-2}\log(1/\delta))$ samples per experiment a certifier decides, at
+error $\le \delta$, whether $d_E \ge t$ (*separated*), $d_E < t \le d_{E^\*}$
+(*channel-limited to $t$*), or $d_{E^\*} < t$ (*law-surviving to $t$*). The exact
+classification ($t=0$) is **not** certifiable: for every finite $n$ a
+law-surviving pair and a channel-limited pair are within $o(1)$ in $n$-sample law,
+so no certifier controls the error. Consequently the exact label is decidable
+**only structurally** — a certificate must name the algebra $M_{E^\*}$
+(equivalently the annihilator $A_{E^\*}$).
 
-*Proof of (2).* Let the channel-limited difference be $\Delta_\varepsilon$ with
-completion-component $\varepsilon > 0$, so that $\Delta_\varepsilon \to \Delta_0$
-(a law-surviving difference) as $\varepsilon \to 0$. For fixed $n$ the induced
-laws satisfy $\lVert P_\varepsilon^{\otimes n} - P_0^{\otimes n}\rVert_{\mathrm{TV}}
-\to 0$ (continuity, bounded by Bretagnolle–Huber), and
-$P_0^{\otimes n} = Q_0^{\otimes n}$ exactly. Hence any test's min-max error on the
-pair $\{P_0, P_\varepsilon\}$ is
-$\ge \tfrac12(1 - \lVert P_\varepsilon^{\otimes n} - P_0^{\otimes n}\rVert_{\mathrm{TV}})
-\to \tfrac12$ as $\varepsilon \to 0$. So no fixed-$n$ test certifies the
-law-surviving label against all nearby channel-limited alternatives. $\square$
+*Proof, and the certification radius $r(\delta) \asymp (\log(1/\delta)/n)^{1/2}$:*
+see [`11` — The certification dichotomy](11-certification-dichotomy.md) §2, §4.
+The mechanism is existential versus universal: a difference ($\exists e$) has a
+finite witness; an identity ($\forall e$) does not.
 
 The asymmetry is structural: **channel-limited ambiguity is a statement about the
-data; law-surviving ambiguity is a statement about the model.** This is the
-rigorous form of "absence of evidence is not evidence of absence."
+data (to any margin); law-surviving ambiguity is a statement about the model.**
+This is the rigorous form of "absence of evidence is not evidence of absence."
 
 **(c) Rank certification from noisy data.** If the effect span itself must be
 learned, certifying its dimension (hence $A_{E^\*}$) is a rank-estimation problem:
@@ -258,8 +251,9 @@ ambiguity is refutable by data and when it is not.*
   open is the exact **error-exponent constant** $c^\*$ in
   $n^\* = (c^\* + o(1))\log(1/\delta)/\tilde d^2$ — the minimax Chernoff
   information of the two balls, transcendental and with no closed form in general.
-- **Certification complexity** (§4): prove a lower bound showing that *no*
-  structure-free test certifies law-surviving — turning the folklore into a
-  theorem with a formal model of "certifying test."
+- **Certification complexity** (§4): now **settled** in
+  [`11` — The certification dichotomy](11-certification-dichotomy.md) — the margin
+  form and the certification radius; the exact (unmargined) case is the
+  non-certifiable singular limit.
 
 **Back to** [README](../README.md).
