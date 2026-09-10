@@ -1,0 +1,72 @@
+# AGENTS.md — finite-observation-calculus
+
+## What this project is
+
+An **exact** (all-rational, zero-dependency) calculus of *records, observations, and inference*. It makes precise one idea:
+
+> When two different underlying structures produce the same observations, there are **two distinct reasons**. One is fixable by measuring more or better; the other survives even the complete observable law.
+
+It is a self-contained extraction and AI/inference re-statement of the record/observation mathematics in the **`omekagardens/det_8_framework`** program (`ret` branch). The canonical upstream formal definition is `docs/QUANTUM_RECORD_STRUCTURE_RESEARCH.md` there (quantum instruments, record slots, the Z/X counterexample, schedule-independence via commuting maps); the predictive-summary and coarse-graining material traces to the upstream QR-02/QR-03 validation studies.
+
+The local project deliberately strips away the upstream `det_8_framework`'s ontology/κ-physics layer and keeps only the **finite, exact, classical-or-quantum record/observation calculus**, restated in computation-focused language.
+
+## Commands
+
+```bash
+python3 demo.py                              # runnable walkthrough of every result
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (23 tests)
+pip install -e .                             # optional: install as a package
+```
+
+Python 3.9+ standard library only. **No dependencies.** The test suite is `unittest`; `pytest` is listed as an optional test dependency but the canonical command is `unittest discover`.
+
+## Invariants (do not break these)
+
+1. **Every number is a `fractions.Fraction`, never a float.** The whole point of the project is *exact* witnesses, not approximate numerics. Do not introduce `float`, `math` (except `math.comb` for binomial coefficients), or any floating-point comparison. Rational arithmetic only.
+2. **No dependencies.** Standard library only. Do not add `numpy`, `sympy`, etc.
+3. **A record is a first-class object, kept separate from the state.** Do not conflate the classical record with the quantum/probability state. This separation is the mathematical content (`docs/01-record-model.md` §4).
+4. **Every core result in the README has a runnable `demo.py` section and a test.** A new "result" is not complete without both.
+5. **Docstrings describe the mathematical claim, not the code mechanics.** Follow the existing style: a module docstring states the result, each function states its exact claim (often with the closed-form formula).
+
+## Repository layout
+
+```
+docs/01-record-model.md            minimal vocabulary: states, events, records, instruments, schedules
+docs/02-equivalence.md             behavioral (record-discarded) vs mechanistic (recorded) equivalence
+docs/03-ambiguity-taxonomy.md      the centerpiece: two kinds of observational ambiguity
+docs/04-minimal-summaries.md       question-relative predictive equivalence / minimal summaries
+docs/05-forgetting.md              coarse-graining (sum of maps) vs recombination (sum of amplitudes)
+docs/06-confidence.md              marginal vs conditional coverage
+docs/07-separation-and-distortion.md  exact separation budgets under distortion
+src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
+src/foc/instruments.py             states, projectors, outcome maps, channels
+src/foc/schedule.py                records, schedules, the Z/X counterexample
+src/foc/summaries.py               predictive equivalence, minimal summaries
+src/foc/geometry.py                the two-kinds-of-ambiguity example (geometry vs sampling density)
+src/foc/forgetting.py              coarse-graining (sum of maps) vs coherent recombination
+src/foc/confidence.py              Clopper-Pearson, marginal/conditional, separation budgets
+tests/                             stdlib unittest suite, one file per module
+```
+
+## Provenance map (what came from where)
+
+This matters because the project's README cites the upstream `det_8_framework` as its source of depth. The mapping is:
+
+| Local artifact | Upstream source (`det_8_framework`/`ret`) | Status |
+|---|---|---|
+| `docs/01-record-model.md`, `instruments.py` | `docs/QUANTUM_RECORD_STRUCTURE_RESEARCH.md` §4 (instrument `I^s_{e,x} = Σ M ρ M†`, record-slot discipline) | **Direct extraction** — notation matches |
+| `docs/02-equivalence.md`, `schedule.py` Z/X counterexample | `QUANTUM_RECORD_STRUCTURE_RESEARCH.md` §5.4 (exact same numbers) | **Direct extraction** — verified |
+| `docs/04-minimal-summaries.md`, `summaries.py` | `docs/validation/qr-03-predictive-histories` (predictive equivalence `n_h/d_h`, "keep last X" fixture) | **Extraction** — concept matches |
+| `docs/05-forgetting.md`, `forgetting.py` | QR-02 (coarse-graining: "do not sum amplitudes when forgetting an outcome") | **Extraction** — concept matches; the non-projective witness instrument is local |
+| `docs/03-ambiguity-taxonomy.md`, `geometry.py` | Order-geometry/density theme from the upstream program; **the exact η/δ factorization obstruction example is this project's own construction** | **Local synthesis** — do not attribute the specific formula to upstream |
+| `docs/06-confidence.md`, `confidence.py` (marginal/conditional) | Upstream RET doctrine (marginal vs conditional predictive support); the n=4 singleton construction is local | **Local synthesis** |
+| `docs/07-separation-and-distortion.md`, `confidence.py` (budgets) | Upstream "separation" theme (QR-06 / RET); the specific `slack = D − 2e − 2/m` certificate is local | **Local synthesis** |
+
+**Rule:** when extending or documenting the code, preserve this distinction. The record-model, equivalence/Z/X, summaries, and forgetting results are upstream-derived — keep them notationally aligned with `det_8_framework`. The ambiguity taxonomy, confidence, and separation-budget results are this project's own exact-ification of upstream *themes* — mark them as such rather than claiming upstream has the exact construction.
+
+## Style
+
+- Follow existing module structure: one conceptual result per module, thin functions with `Fraction`-typed math, docstrings that state the exact claim.
+- Tests assert **exact** `Fraction` equality, never approximate `assertAlmostEqual` for the core claims (a `assertLessEqual` sanity check on an interval endpoint is the one exception, in `test_confidence.py`).
+- Matrix representation is a list of lists of `Fraction`. The adjoint is the transpose (all examples are real).
+- Do not add comments narrating what the code does; the docstrings already carry the mathematical claim.

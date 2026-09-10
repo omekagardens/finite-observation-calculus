@@ -81,6 +81,7 @@ finite-observation-calculus/
 │   ├── schedule.py             # records, schedules, the Z/X counterexample
 │   ├── summaries.py            # predictive equivalence, minimal summaries
 │   ├── geometry.py             # the two-kinds-of-ambiguity example
+│   ├── forgetting.py           # coarse-graining (sum of maps) vs coherent recombination
 │   └── confidence.py           # binomial intervals, budgets, distortion
 └── tests/                      # stdlib unittest suite
 ```

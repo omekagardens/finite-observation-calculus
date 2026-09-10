@@ -4,8 +4,8 @@ observations, and inference.
 All numbers are ``fractions.Fraction``; nothing here uses floating point.
 """
 
-from . import linalg, instruments, schedule, summaries, geometry, confidence
+from . import linalg, instruments, schedule, summaries, geometry, forgetting, confidence
 
-__all__ = ["linalg", "instruments", "schedule", "summaries", "geometry", "confidence"]
+__all__ = ["linalg", "instruments", "schedule", "summaries", "geometry", "forgetting", "confidence"]
 
 __version__ = "0.1.0"

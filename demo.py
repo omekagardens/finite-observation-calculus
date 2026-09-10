@@ -14,6 +14,7 @@ from fractions import Fraction
 from foc import instruments as ins
 from foc import schedule
 from foc import summaries
+from foc import forgetting
 from foc import geometry
 from foc import confidence
 
@@ -72,8 +73,21 @@ def main():
     w0p, w1p = summaries.summary_loses_weights()
     print("summary 's=+' loses history weights:", w0p, "vs", w1p)
 
-    # 4. Marginal vs conditional confidence
-    hdr("4. Marginal vs. conditional confidence")
+    # 4. Forgetting is not recombination
+    hdr("4. Forgetting is not recombination (coarse-graining vs coherent sum)")
+    zex = forgetting.z_example()
+    print("  sum of branches (forget)      ->", fmt_matrix(zex["forgotten"]))
+    print("  sum of amplitudes (recombine) ->", fmt_matrix(zex["recombined"]))
+    print("  differ?", zex["differ"], "| recombined == identity?", zex["recombined_is_identity"])
+    w = forgetting.impossibility_witness()
+    print("  coarse merges |+> and |-> ->", fmt_matrix(w["coarse_state"]),
+          "(equal?", w["coarse_merges"], ")")
+    print("  fine feedback: |+> ->", fmt_matrix(w["fine_plus"]))
+    print("                 |-> ->", fmt_matrix(w["fine_minus"]))
+    print("  no coarse-only replacement exists?", w["no_replacement"])
+
+    # 5. Marginal vs conditional confidence
+    hdr("5. Marginal vs. conditional confidence")
     m = confidence.marginal_vs_conditional()
     print(f"  n={m['n']}, p={m['p']}, singleton guess={m['singleton_guess']}")
     print(f"  P(report singleton) = {m['prob_singleton']}")
@@ -83,8 +97,8 @@ def main():
     low, high = confidence.clopper_pearson(2, 4, Fraction(1, 20))
     print(f"  Clopper-Pearson 95% interval (k=2, n=4): [{low}, {high}]")
 
-    # 5. Separation budget under distortion
-    hdr("5. Separation budgets under distortion")
+    # 6. Separation budget under distortion
+    hdr("6. Separation budgets under distortion")
     print(f"{'case':18} {'D':>8} {'e':>10} {'D_e':>8} {'slack':>10} {'score':>8}  cert")
     for r in confidence.bv_table():
         print(f"{r['name']:18} {str(r['D']):>8} {str(r['e']):>10} {str(r['D_e']):>8} "
