@@ -100,8 +100,28 @@ class TestAmbiguity(unittest.TestCase):
         rows = {name: (dim, kind) for name, dim, kind in ambiguity.symmetry_examples()}
         self.assertEqual(rows["x^2+y^2"][0], 1)      # continuous
         self.assertEqual(rows["x*y"][0], 1)          # continuous
-        self.assertEqual(rows["x^3+y^3"][0], 0)      # accidental
+        self.assertEqual(rows["x^3+y^3"][0], 0)      # no *linear* symmetry
         self.assertEqual(rows["(eta+delta, eta*delta)"][0], 0)  # discrete only
+
+    def test_polynomial_symmetry_growth(self):
+        # the degree-<=d section space of ker DL for L=x^2+y^2 grows as d(d+1)/2
+        self.assertEqual(ambiguity.symmetry_growth(),
+                         [(1, 1), (2, 3), (3, 6), (4, 10)])
+
+    def test_polynomial_symmetry_degree(self):
+        grid = [(Fraction(i), Fraction(j)) for i in range(6) for j in range(6)]
+        jac = lambda t: [[3 * t[0] ** 2, 3 * t[1] ** 2]]  # L = x^3 + y^3
+        self.assertEqual(ambiguity.polynomial_symmetry_dim(jac, 1, grid), 0)  # no linear
+        self.assertEqual(ambiguity.polynomial_symmetry_dim(jac, 2, grid), 1)  # quadratic symmetry
+
+    def test_rank1_symmetry_field(self):
+        jac = lambda t: [[-3 * t[0] ** 2, Fraction(1)]]  # L = y - x^3
+        X = ambiguity.rank1_symmetry_field(jac)
+        th = (Fraction(3), Fraction(5))
+        Xv = X(th)
+        self.assertEqual(Xv, (Fraction(1), Fraction(27)))  # X = (L_y, -L_x) = (1, 3x^2)
+        J = jac(th)[0]
+        self.assertEqual(J[0] * Xv[0] + J[1] * Xv[1], 0)   # DL . X = 0
 
     def test_distortion_collapse(self):
         self.assertEqual(ambiguity.distortion_separation(Fraction(1, 4), Fraction(1, 16)),

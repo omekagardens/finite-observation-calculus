@@ -53,7 +53,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/11-certification-dichotomy.md` states the certification theorem formally: at any margin `t` the whole trichotomy is certifiable from data at cost `Θ(t⁻²log(1/δ))`, while the exact case is the non-certifiable singular limit `t→0` (certification radius `≍ (log(1/δ)/n)^{1/2}`).
 
-These documents (`08`–`11`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/12-nonlinear-symmetry.md` settles the nonlinear case: the intrinsic symmetry question is ill-posed (the polynomial symmetry space grows as `d(d+1)/2`), but **every rank-one fiber is a 1-parameter group orbit** — so "no linear symmetry" never means "accidental."
+
+These documents (`08`–`12`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -97,7 +99,8 @@ finite-observation-calculus/
 │   ├── 08-ambiguity-dichotomy.md        # the general dichotomy (synthesis)
 │   ├── 09-decidability.md               # integrability, distortion, one-sided decidability
 │   ├── 10-locality-and-access.md        # locality vs global access; the access trichotomy
-│   └── 11-certification-dichotomy.md    # the certification theorem (margin form)
+│   ├── 11-certification-dichotomy.md    # the certification theorem (margin form)
+│   └── 12-nonlinear-symmetry.md         # declared generators; the rank-one theorem
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels

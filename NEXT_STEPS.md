@@ -9,20 +9,24 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/09`: integrability / distortion / decidability.
 - `docs/10`: locality and access.
 - `docs/11`: the certification dichotomy (margin form; certification radius).
+- `docs/12`: nonlinear symmetry (declared generators; the rank-one theorem).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
-  `linear_symmetry_dim`, `l_inf_separation`, `l_inf_erosion_rate`,
-  `llm_probe_audit`.
+  `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
+  `l_inf_separation`, `l_inf_erosion_rate`, `llm_probe_audit`.
 
 ## Open tracks
 
-### T1 — Nonlinear symmetry  *(open; interesting)*
-`docs/09` §2 decides the **linear** case via `𝔞(L) ⊂ gl(n)`. Extend to
-**nonlinear / algebraic** symmetries: a criterion for when an ambiguity is an
-orbit of a declared nonlinear group, not just `GL(n)`. Caveat already recorded:
-every rank-one fiber is *locally* a nonlinear tangent-flow orbit, so the intrinsic
-question is ill-posed and any criterion must be **relative to a declared group /
- Lie pseudogroup**. Related machinery: Lie foliations (Molino), the holonomy group
-(`docs/09` §2 Remark, `docs/10` §3).
+### T1 — Nonlinear symmetry  *(documented in `docs/12`; residual items open)*
+`docs/12` settles the main question: the intrinsic symmetry algebra is
+infinite-dimensional (the degree-`≤d` polynomial symmetry space grows as
+`d(d+1)/2`), so the question is relative to a declared generator space; and every
+**rank-one** fiber is a 1-parameter group orbit, `X=(L_y,−L_x)`. Residual open
+items:
+- an explicit exact **non-Lie-foliation** witness (a rank-`≥2` parametric
+  foliation with nonvanishing Godbillon–Vey class) to instantiate the
+  codimension-`≥2` case;
+- a criterion for the **minimal symmetry degree**;
+- decidability of the foliation case from finitely many derivatives.
 
 ### T2 — Empirical protocol
 Instantiate the certifier (`docs/11`) on a real probe family and an empirical

@@ -10,6 +10,7 @@ The three computable pieces are:
 - the **collapse threshold** ``2e = d`` of distortion (``collapses``).
 """
 
+import itertools
 from fractions import Fraction
 
 from . import linalg as la
@@ -135,6 +136,60 @@ def symmetry_examples():
         (name, linear_symmetry_dim(jac, grid, 2), kind)
         for name, jac, grid, kind in cases
     ]
+
+
+def polynomial_symmetry_dim(jacobian, d, grid, n=2):
+    """Dimension of the degree-``<= d`` **polynomial** symmetry space (``docs/12``).
+
+    Fields are ``X_i(theta) = sum_{|alpha|<=d} c_{i,alpha} theta^alpha``; the
+    condition ``DL(theta) X(theta) = 0`` on the sample ``grid`` is a linear
+    system whose kernel is the symmetry space. For a rank-one law map this space is
+    the degree-``<= d`` section space of ``ker DL``, of dimension ``d(d+1)/2`` --
+    it grows without bound, so the *intrinsic* symmetry algebra is
+    infinite-dimensional. The ``grid`` must be large enough to pin the polynomial
+    identity ``DL X = 0`` (at least ``deg(DL) + d + 1`` points per variable).
+    """
+    exps = [a for a in itertools.product(range(d + 1), repeat=n) if sum(a) <= d]
+    n_unk = len(exps) * n
+    rows = []
+    for th in grid:
+        J = jacobian(th)
+        for k in range(len(J)):
+            row = [Fraction(0)] * n_unk
+            for mi, a in enumerate(exps):
+                val = Fraction(1)
+                for i in range(n):
+                    val *= th[i] ** a[i]
+                for i in range(n):
+                    row[mi * n + i] += J[k][i] * val
+            rows.append(row)
+    return n_unk - _rank(rows)
+
+
+def rank1_symmetry_field(jacobian):
+    """The tangent field ``X = (L_y, -L_x)`` of a rank-one law map ``R^2 -> R``.
+
+    It satisfies ``DL . X = L_x L_y - L_y L_x = 0`` identically, so by the
+    rank-one theorem (``docs/12``) *every* rank-one fiber is a 1-parameter group
+    orbit -- its flow. ``rank1_symmetry_field(jac)(theta)`` returns the value
+    ``X(theta)``.
+    """
+    def field(th):
+        J = jacobian(th)[0]  # DL = (L_x, L_y)
+        return (J[1], -J[0])
+    return field
+
+
+def symmetry_growth():
+    """Degree-filtered polynomial symmetry dimension for ``L = x^2 + y^2``.
+
+    Returns ``[(d, dim)]``; the values are the triangular numbers ``d(d+1)/2``,
+    the dimension of the degree-``<= d`` sections of ``ker DL`` -- evidence that
+    the intrinsic symmetry algebra is infinite-dimensional (``docs/12``).
+    """
+    grid = [(Fraction(i), Fraction(j)) for i in range(7) for j in range(7)]
+    jac = lambda t: [[2 * t[0], 2 * t[1]]]
+    return [(d, polynomial_symmetry_dim(jac, d, grid)) for d in (1, 2, 3, 4)]
 
 
 def distortion_separation(d, e):

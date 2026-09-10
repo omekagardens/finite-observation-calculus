@@ -134,6 +134,19 @@ def main():
         print(f"  {name:26} {dim:>8}  {kind}")
     print()
 
+    # 10. Nonlinear symmetry: declared generators and the rank-one theorem
+    hdr("10. Nonlinear symmetry (declared generators)")
+    growth = ambiguity.symmetry_growth()
+    print("  L=x^2+y^2: degree-filtered polynomial symmetry dim (sections of ker DL)")
+    print("   d   :", " ".join(f"{d:>3}" for d, _ in growth))
+    print("   dim :", " ".join(f"{v:>3}" for _, v in growth), " = d(d+1)/2 (grows -> ill-posed)")
+    grid = [(Fraction(i), Fraction(j)) for i in range(6) for j in range(6)]
+    jac3 = lambda t: [[3 * t[0] ** 2, 3 * t[1] ** 2]]
+    print("  L=x^3+y^3: dim a^(1) =", ambiguity.polynomial_symmetry_dim(jac3, 1, grid),
+          " dim a^(2) =", ambiguity.polynomial_symmetry_dim(jac3, 2, grid),
+          "(no linear; quadratic symmetry)")
+    print()
+
 
 if __name__ == "__main__":
     main()
