@@ -24,49 +24,64 @@ The whole note is exact: every number is a `Fraction`.
 Throughout, $B_e(P) := \{R : \lVert R-P\rVert_{\mathrm{TV}} \le e\}$ is the
 distortion ball.
 
-## 2. Integrability: ambiguity is a symmetry only when it is homogeneous
+## 2. Integrability: symmetry is group-relative, and computable
 
-Let $L : \Theta \to \mathbb R^m$ be smooth of constant rank $r$ on an open
-$U \subseteq \mathbb R^n$. Its fibers are the leaves of the involutive
-distribution $D := \ker DL$ (involutive because it is the tangent bundle of the
-level sets; equivalently, Frobenius holds automatically).
+**The trap.** "The ambiguity is a group orbit" is *not* an intrinsic property.
+Every constant-rank fiber is locally homogeneous: the rank theorem gives adapted
+coordinates in which $L$ is a coordinate projection, the fiber is an affine
+subspace, and the local translations in the adapted coordinates preserve $L$ and
+act transitively on the fiber. So every fiber is a local orbit of *some*
+(generally nonlinear) group, and any honest claim that a given unidentifiability
+is a *symmetry* must name the group.
 
-**Theorem 2.1 (integrability criterion).**
-1. Each leaf is *locally homogeneous* — an orbit of a local Lie-group action —
-   iff $D$ is a **Lie foliation**: there is a local frame $X_1,\dots,X_k$ of $D$
-   with $[X_i,X_j] = \sum_l c^l_{ij}\,X_l$ for **constants** $c^l_{ij}$.
-2. The leaves are *globally* orbits of a Lie group iff (1) holds with trivial
-   monodromy and each $X_i$ complete.
-3. If $D$ is not a Lie foliation, the ambiguity is a genuine foliation with
-   non-homogeneous leaves: a continuous ambiguity that is **not** a symmetry.
+**The right question.** Fix a **declared** group $G$ acting on the world space
+$\Theta$. Since $L$ is $G$-invariant exactly when $G$ preserves each fiber, the
+fiber $F$ through $\theta$ is a single $G$-orbit iff $G$ acts transitively on
+$F$:
 
-*Proof sketch.* A group orbit is homogeneous, and the fundamental vector fields
-of a connected Lie group are complete, span the tangent space at each point, and
-close under bracket with structure *constants*. Conversely, a frame closed with
-constant structure generates a finite-dimensional Lie algebra $\mathfrak g$;
-Palais' theorem integrates it to a local Lie-group action, and completeness +
-trivial monodromy globalize it. If the structure functions are not constant, the
-generated (pseudo-)group is infinite-dimensional — the leaf is a leaf, not an
-orbit. $\square$
+> The ambiguity is a **symmetry** of $G$ iff $G$ acts transitively on the fiber;
+> otherwise it is an **accidental** degeneracy relative to $G$.
 
-**Corollary 2.2.**
-- $\operatorname{rank} D = 1$: always locally homogeneous — a single vector
-  field's flow acts transitively on each integral curve.
-- **Linear** $L(\theta) = A\theta$: the fiber is the affine space
-  $\theta_0 + \ker A$, a translation orbit (abelian group). So the
-  group-versus-foliation question is *inherently nonlinear*.
-- The geometry family of `08`/`03`, $L(\eta,\delta)=(\eta+\delta,\eta\delta)$,
-  has $D=0$: a **discrete** ambiguity (the $\mathbb Z/2$ swap) — a finite orbit.
+**The computable case (linear $G$).** For $G$ the linear group, transitivity is
+decided by the finite-dimensional **infinitesimal linear symmetry algebra**
 
-**Obstruction.** The failure of (1) is measured by a cohomological invariant of
-the foliation (the structure tensor; in codimension one, the **Godbillon–Vey
-class**).
+$$\mathfrak a(L) \;=\; \{\, A \in \mathfrak{gl}(n) \;:\; DL(\theta)\,A\,\theta = 0
+\ \text{ for all } \theta \in \Theta \,\},$$
 
-**Status.** The mathematics is classical — this is the theory of **Lie
-foliations** (Molino) and the structure-functions invariant. The *new* content is
-the reading: **gauge symmetry = the homogeneous case**, so "is this an
-unidentifiability by symmetry?" becomes the checkable question "are the structure
-functions constant?" A continuous ambiguity need not be a symmetry.
+computed by a null-space (rank) calculation. The orbit of $\exp\mathfrak a(L)$
+through $\theta$ has tangent space $\{A\theta : A \in \mathfrak a(L)\}$, so
+
+$$F \text{ is a continuous linear-symmetry orbit} \iff
+\dim\operatorname{span}\{A\theta : A \in \mathfrak a(L)\} = \dim F.$$
+
+**The three kinds of law-surviving ambiguity** (exact instances, verified):
+
+| $L$ | $\dim \mathfrak a(L)$ | fibers | reading |
+|---|---:|---|---|
+| $x^2+y^2$ | 1 | circles | continuous symmetry (rotation); fiber $=$ orbit |
+| $xy$ | 1 | hyperbolas | continuous symmetry (scaling); fiber $=$ orbit |
+| $x^3+y^3$ | 0 | cubic curves | **accidental** — no continuous linear symmetry |
+| $(\eta+\delta,\ \eta\delta)$ | 0 | $\mathbb Z/2$ orbits | **discrete** symmetry only (the swap) |
+
+So law-surviving ambiguity comes in three structurally different kinds: a
+**continuous symmetry** ($\mathfrak a(L)$ spans the fiber), a **discrete
+symmetry** (an isolated finite orbit), or an **accidental** degeneracy (no
+declared symmetry — the continuity is a coordinate artifact). Only the first two
+earn the word "symmetry"; the third is a generic coincidence.
+
+**Remark (finite-dimensional transverse structure).** A stronger, *transverse*
+condition is that the kernel distribution be a **Lie foliation** (Molino): it
+admits a frame with **constant** structure functions
+$[X_i,X_j] = \sum_l c^l_{ij} X_l$, with the structure tensor — and in codimension
+one the Godbillon–Vey class — as obstruction. This is *not* the same as leaf
+homogeneity (which is automatic for every fiber); it asks that the *transverse*
+geometry be a finite-dimensional Lie group. It is the natural home of a genuine
+finite-dimensional gauge structure.
+
+**Status.** The $\mathfrak a(L)$ computation is standard Lie theory. The *new*
+content is the reading: **symmetry is group-relative** — the intrinsic question
+is ill-posed, because every fiber is already a local pseudogroup orbit — and the
+continuous / discrete / accidental trichotomy that follows.
 
 ## 3. Distortion: the collapse is sharp at $2e = d$, with a matching rate
 
@@ -196,7 +211,7 @@ resolvable structure, vacuous for the exact-zero claim.
 
 | Clause | Imported from | New here |
 |---|---|---|
-| §2 integrability | Lie foliations (Molino), structure functions, Godbillon–Vey | the identification *gauge symmetry = homogeneous case* |
+| §2 integrability | linear symmetry algebras; Lie foliations (Molino) as the transverse refinement | the reading *symmetry is group-relative* + the continuous / discrete / accidental trichotomy |
 | §3 collapse rate | Le Cam two-point, Bretagnolle–Huber, Hoeffding/Chernoff | the sharp threshold $2e=d$ in the identifiability setting; the $\ell^\infty$ refinement |
 | §4 one-sided decidability | sharp-null non-testability (folklore) | the **trichotomy packaging**: data vs structure, with the rank test as the structural oracle |
 
@@ -206,9 +221,12 @@ ambiguity is refutable by data and when it is not.*
 
 ## 7. Where a genuinely new theorem could still live
 
-- **Integrability from structure** (§2): derive the constancy of the structure
-  functions from the *observable algebra* rather than importing it from foliation
-  theory — a purely algebraic criterion for homogeneous ambiguity.
+- **Nonlinear symmetry** (§2): extend $\mathfrak a(L)$ (linear symmetries) to
+  *algebraic / Lie-group* symmetries of the law map — a criterion for when an
+  ambiguity is a symmetry of a declared nonlinear group.
+- **Intrinsic symmetry, if any** (§2): the intrinsic question is ill-posed
+  because every fiber is a local pseudogroup orbit; is there a canonical minimal
+  group (analogue of a holonomy group) whose transitivity *is* intrinsic?
 - **Exact collapse constant** (§3): replace $\Theta$ by the exact minimax constant
   for the $\ell^\infty$-ball model.
 - **Certification complexity** (§4): prove a lower bound showing that *no*

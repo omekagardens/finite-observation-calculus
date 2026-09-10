@@ -45,7 +45,7 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/09-decidability.md` develops the consequences:
 
-- **Integrability** — a continuous ambiguity is a genuine *symmetry* exactly when its fibers are homogeneous (a Lie foliation, constant structure functions); otherwise it is a foliation, not a group orbit.
+- **Integrability** — *symmetry is group-relative*: every fiber is locally a pseudogroup orbit, so "is this ambiguity a symmetry?" must name a group. For a declared linear group the check is the computable symmetry algebra `𝔞(L)`, giving a continuous / discrete / accidental trichotomy.
 - **Distortion** — the collapse is sharp at `2e = d`, with a matching non-asymptotic rate `n* = Θ((d−2e)⁻²log(1/δ))`.
 - **One-sided decidability** — with the model in hand the trichotomy is a finite rank computation costing no experiments; from data alone the resolvable labels are certifiable but the law-surviving label is *not*. **Channel-limited ambiguity is a statement about the data; law-surviving ambiguity is a statement about the model.**
 

@@ -240,9 +240,11 @@ theorem.
 The sharp clause of §4 is developed in
 **[09 — Decidability, distortion, and the integrability of ambiguity](09-decidability.md)**:
 
-- **Integrability** (§2 there): a continuous ambiguity is a genuine *symmetry*
-  exactly when its fibers are homogeneous — a Lie foliation with constant
-  structure functions; otherwise it is a foliation, not a group orbit.
+- **Integrability** (§2 there): symmetry is **group-relative** — every fiber is
+  already a local pseudogroup orbit, so "is this ambiguity a *symmetry*?" must
+  name a group. For a declared *linear* group the check is the computable
+  symmetry algebra $\mathfrak a(L)$, yielding a continuous / discrete /
+  accidental trichotomy.
 - **Distortion** (§3): the collapse threshold $2e=d$ is exact, with
   $n^\* = \Theta((d-2e)^{-2}\log(1/\delta))$ and matching bounds.
 - **Certification** (§4): the trichotomy is decidable by a rank computation given
