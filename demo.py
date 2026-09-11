@@ -34,6 +34,9 @@ from foc import mathbench
 from foc import nested
 from foc import longsession
 from foc import hierarchical
+from foc import replacement
+from foc import enclosure
+from foc import composition
 
 
 def fmt_matrix(m):
@@ -338,6 +341,77 @@ def main():
     print("  internal margins:", hier["internal_margins"])
     print(f"  flat router bits {hier['flat_router_bits']} vs nested {hier['nested_router_bits']}"
           f"  (nesting costs more? {hier['nesting_costs_more']})")
+    print()
+
+    # 26. Replacement robustness: minimax retention and the envelope
+    hdr("26. Replacement robustness: minimax retention + the envelope")
+    rp = replacement.replacement_report()
+    print("  excess is affine in the actual level?", rp["affine"])
+    print(f"  {'assumed':>7} {'bound':>5} {'minimax V':>11}  minimizer weights")
+    for c in rp["minimax"]:
+        print(f"  {c['assumed']:>7} {c['bound']:>5} {str(c['minimax']):>11}"
+              f"  {c['minimizer_weights']}")
+    sh, fl, cw = rp["envelope_sharp"], rp["envelope_flat"], rp["envelope_clean_worst"]
+    print(f"  envelope sharp fibers: S={sh['full_excess']} max={sh['maximum']}"
+          f"  full-support attained={sh['full_support_maximum_attained']}")
+    print(f"  envelope flat  fibers: S={fl['full_excess']} max={fl['maximum']}"
+          f"  full-support attained={fl['full_support_maximum_attained']}")
+    print(f"  envelope clean worst: max={cw['maximum']}"
+          f"  (zero is worst, attained={cw['full_support_maximum_attained']})")
+    r = rp["retention"]
+    print(f"  continuous retention: a*={r['optimizer']}  min={r['minimum']}"
+          f"  KKT? {r['kkt_at_half']}")
+    print(f"    menu gap={r['menu_gap']}  sharp bound 16*gap<=A? {r['menu_gap_sharp']}")
+    az = rp["aggregate_zero"]
+    print(f"  aggregate zero at a=1/2 (hides risk? {az['hides']}):"
+          f"  positive {az['positive']} / negative {az['negative']}")
+    print(f"  opposite tilts average to uniform? {rp['tilts']['opposite']}"
+          f"  and cancel (M_fwd+M_rev)/2=M0? {rp['tilts']['cancellation']}")
+    print()
+
+    # 27. Certified enclosures: bracketing and the three-way error split
+    hdr("27. Certified enclosures: L<=G<=U + the three-way error split")
+    er = enclosure.enclosure_report()
+    rows = [("aligned [0,2/3]x[0,1/2]", er["aligned"]),
+            ("unaligned (coarse)", er["unaligned_coarse"]),
+            ("unaligned (refined)", er["unaligned_fine"])]
+    print(f"  {'probe':24} {'L':>6} {'G':>6} {'U':>6} {'V':>6} {'gap':>6}  certified")
+    for name, pv in rows:
+        b = pv["bounds"]
+        print(f"  {name:24} {str(b['lower']):>6} {str(b['representative']):>6}"
+              f" {str(b['upper']):>6} {str(pv['volume']):>6} {str(b['gap']):>6}"
+              f"  {all(pv['checks'].values())}")
+    ref = er["refinement"]
+    print(f"  refinement: lower_gain={ref['lower_gain']} upper_drop={ref['upper_drop']}"
+          f" gap_drop={ref['gap_drop']}  -> the gap tightens")
+    print(f"  quadrature error: coarse={er['quadrature_coarse']}"
+          f" fine={er['quadrature_fine']}  absolute error grew? {er['abs_error_grew']}")
+    d = er["decomposition"]
+    print(f"  three-way split: total {d['total']} = sampling {d['sampling']}"
+          f" + annotation {d['annotation']} + quadrature {d['quadrature']}"
+          f"  (identity {d['identity']})")
+    k = er["kernel"]
+    print(f"  kernel: {k['total']} = boundary {k['boundary']} + cross-order {k['cross_order']}"
+          f" + omission {k['omission']}  (identity {k['identity']})")
+    print()
+
+    # 28. Summaries are not compositional: pair additivity vs chain closure
+    hdr("28. Summaries are not compositional (pair additive != chain closed)")
+    cr = composition.composition_report()
+    u = cr["unit"]
+    print(f"  unit clip: pair J={u['pair']}  triple T={u['triple']}  pair-product P={u['pair_product']}")
+    print(f"  pair fraction={u['pair_fraction']} (row sum 1? {u['row_sum_is_one']})"
+          f"  triple fraction={u['triple_fraction']}")
+    print(f"  (1/4)^2={u['squared_pair_fraction']} != 1/36 -> squaring mismatch:"
+          f" {u['squaring_mismatch']}")
+    print(f"  product error P-T={u['product_error']}  middle covariance={u['middle_covariance']}")
+    cv = cr["covariance"]
+    print(f"  covariance identity: T-P={cv['T'] - cv['P']} = h_B*Cov="
+          f"{cv['h_b'] * cv['covariance']}  (holds {cv['identity']})")
+    agg = cr["aggregation"]
+    print(f"  geometric coarsening weights sum={cr['weight_sum']}"
+          f"  weighted={agg['weighted']} vs unweighted={agg['unweighted']}"
+          f"  (differ {agg['differ']})")
     print()
 
 

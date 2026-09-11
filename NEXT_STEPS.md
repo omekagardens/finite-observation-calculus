@@ -27,6 +27,20 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/27`: richer node classes — cubic / quartic / rational lifts; `min_lift` = symmetry degree.
 - `docs/28`: distribution at scale — node sharding across processes (5.79x, bit-identical, JSON).
 - `docs/29`: the hierarchical router — build/route; nesting adds routing cost (6 vs 9 bits).
+- `docs/30`: replacement robustness — minimax retention, the replacement envelope, the sharp menu
+  bound, aggregate≠per-instance, opposite tilts cancel. (from `qr-05-bridge`, `qr-05aa`–`ae`)
+- `docs/31`: certified enclosures — `L≤G≤U` bracketing, refinement that tightens the gap but not
+  the error, the three-way error split, the kernel discrepancy. (from `qr-05ag`/`ah`/`ai`)
+- `docs/32`: summaries are not compositional — pair additivity vs chain closure, the covariance
+  identity, conditionals with row sum `1/4`. (from `qr-05aj`/`ak`)
+- `src/foc/replacement.py`: `excess`, `minimax_certificate`, `envelope_profile`,
+  `retention_optimizer`, `retention_kkt`, `menu_gap`, `group_polynomials`,
+  `forward_tilt`, `tilt_cancellation`, `replacement_report`.
+- `src/foc/enclosure.py`: `bounds`, `certify`, `refine`, `error_decomposition`,
+  `kernel_discrepancy`, `membership`, `enclosure_report`.
+- `src/foc/composition.py`: `pair_int_1d`, `triple_int_1d`, `pair_measure`,
+  `triple_measure`, `pair_product`, `covariance_identity_1d`, `coarsening_weights`,
+  `unit_rectangle_report`, `composition_report`.
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,
@@ -68,6 +82,15 @@ conditional; partial identification). Residual: more domains / larger examples
 ### T5 — Formalization (Lean)
 The finite-dimensional core is exact rational, hence Lean-friendly; machine-check
 the theorems to make the "exact" claim a "certified" one.
+
+### T6 — `qr-05-bridge` beyond the record calculus  *(deliberately not folded)*
+The remaining `qr-05a*` studies (roughly `qr-05al` onward: middle moments, field
+measurements, measurement stability, source portability, metric reconstruction,
+Laplacian / Lorentzian-operator convergence, Bell correspondence, physical
+protocol design) are geometry / physics **protocol** work. They sit in the
+ontology layer this project deliberately strips (`AGENTS.md`), so they are folded
+only if and when the calculus gains a genuine classical/quantum *record*
+statement from them.
 
 ## Recently closed
 

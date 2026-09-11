@@ -83,7 +83,13 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/26-math-oracle.md` runs the bootstrap against math-capable local models (`qwen2.5-coder:3b` seeds cleanly, loss 0; `deepseek-r1:8b` times out). `docs/27-node-classes.md` adds cubic/quartic/rational lifts. `docs/28-distribution.md` shards nodes across processes (**5.79×** speedup, bit-identical, JSON certificates). `docs/29-hierarchical-router.md` builds the nested router and **confirms nesting adds routing cost** (6 vs 9 bits).
 
-These documents (`08`–`29`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/30-replacement-robustness.md` makes the replacement criterion **quantitative**: a minimax retention certificate over a declared uncertainty set (subtract coarse *before* max; nested bounds monotone), the whole-fiber **replacement envelope** `U_t=(1-t)c+tS` with the full-support attainment criterion, continuous retention `Q(a)=Aa²-2Ba` with the exact KKT identity and the sharp menu bound `16·gap ≤ A`, the fact that the aggregate is **not** per-instance (signed groups `P+N+Z`), and the exact cancellation of opposite stress tilts.
+
+`docs/31-certified-enclosures.md` certifies the *geometric* trace: the exact bracketing `L ≤ G ≤ U`, `L ≤ V ≤ U`, `|G-V| ≤ gap` (with `G` and `V` deliberately unordered), refinement that tightens the **gap** but not necessarily the error, the three-way identity `mean - V = (mean-T) + (T-G) + (G-V)` (sampling + annotation + quadrature), and the kernel discrepancy `P_g - J = (P_g-K) + (K-Jcross) - Jdiag`.
+
+`docs/32-summaries-not-compositional.md` exhibits the sharp obstruction: an exactly additive *pair* summary does **not** close to a *chain* summary — `T - P = h_B·Cov_B(L_A,R_C)`, unit case `T=1/288` vs `P=1/128`, conditionals with row sum `1/4` (not `1`), and geometric coarsening weights `h_a h_b/(h_A h_B)`.
+
+These documents (`08`–`32`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -145,7 +151,10 @@ finite-observation-calculus/
 │   ├── 26-math-oracle.md                # the real math oracle (qwen2.5-coder vs deepseek-r1)
 │   ├── 27-node-classes.md               # richer lifts (cubic / quartic / rational)
 │   ├── 28-distribution.md               # distributing nodes across processes
-│   └── 29-hierarchical-router.md        # the nested router (nesting adds cost)
+│   ├── 29-hierarchical-router.md        # the nested router (nesting adds cost)
+│   ├── 30-replacement-robustness.md     # minimax retention, the replacement envelope, tilts
+│   ├── 31-certified-enclosures.md       # L<=G<=U bracketing + the three-way error split
+│   └── 32-summaries-not-compositional.md # pair additivity is not chain closure
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -170,7 +179,10 @@ finite-observation-calculus/
 │   ├── nested.py               # B4/B5: flat vs nested regimes, projections, distribution
 │   ├── longsession.py          # B3: longer training via certified truncation
 │   ├── hierarchical.py         # the nested router (build, route, flat vs nested bits)
-│   └── distributed.py          # distribute regime nodes across processes (JSON certs)
+│   ├── distributed.py          # distribute regime nodes across processes (JSON certs)
+│   ├── replacement.py          # minimax retention, the replacement envelope, stress tilts
+│   ├── enclosure.py            # L<=G<=U bracketing + the three-way error decomposition
+│   └── composition.py          # pair additivity vs chain closure (the covariance identity)
 ├── scripts/
 │   ├── bootstrap_llm.py        # runnable LLM bootstrap (offline mock or a local endpoint)
 │   ├── benchmarks.py           # reproducible benchmark runner (B1-B6, --distributed)

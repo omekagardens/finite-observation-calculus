@@ -9,6 +9,7 @@ from . import (
     ambiguity, certificate, crossdomain, modelrun, train, transformer, truncate,
     regime, router, internal, corrective, bootstrap,
     mathbench, nested, longsession, hierarchical, distributed,
+    replacement, enclosure, composition,
 )
 
 __all__ = [
@@ -16,6 +17,7 @@ __all__ = [
     "confidence", "ambiguity", "certificate", "crossdomain", "modelrun", "train",
     "transformer", "truncate", "regime", "router", "internal", "corrective",
     "bootstrap", "mathbench", "nested", "longsession", "hierarchical", "distributed",
+    "replacement", "enclosure", "composition",
 ]
 
 __version__ = "0.1.0"

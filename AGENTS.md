@@ -6,7 +6,7 @@ An **exact** (all-rational, zero-dependency) calculus of *records, observations,
 
 > When two different underlying structures produce the same observations, there are **two distinct reasons**. One is fixable by measuring more or better; the other survives even the complete observable law.
 
-It is a self-contained extraction and AI/inference re-statement of the record/observation mathematics in the **`omekagardens/det_8_framework`** program (`ret` branch). The canonical upstream formal definition is `docs/QUANTUM_RECORD_STRUCTURE_RESEARCH.md` there (quantum instruments, record slots, the Z/X counterexample, schedule-independence via commuting maps); the predictive-summary and coarse-graining material traces to the upstream QR-02/QR-03 validation studies.
+It is a self-contained extraction and AI/inference re-statement of the record/observation mathematics in the **`omekagardens/det_8_framework`** program (`ret` and `qr-05-bridge` branches). The canonical upstream formal definition is `docs/QUANTUM_RECORD_STRUCTURE_RESEARCH.md` there (quantum instruments, record slots, the Z/X counterexample, schedule-independence via commuting maps); the predictive-summary and coarse-graining material traces to the upstream QR-02/QR-03 validation studies, and the replacement-robustness, enclosure and non-compositionality material (`docs/30`–`32`) traces to the `qr-05a*` series on the `qr-05-bridge` branch.
 
 The local project deliberately strips away the upstream `det_8_framework`'s ontology/κ-physics layer and keeps only the **finite, exact, classical-or-quantum record/observation calculus**, restated in computation-focused language.
 
@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (77 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (120 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -60,6 +60,9 @@ docs/26-math-oracle.md             the real math oracle (local model selection)
 docs/27-node-classes.md            richer lifts (cubic / quartic / rational)
 docs/28-distribution.md            distributing nodes across processes (JSON certs)
 docs/29-hierarchical-router.md     the nested router (nesting adds cost)
+docs/30-replacement-robustness.md  minimax retention, the replacement envelope, stress tilts
+docs/31-certified-enclosures.md    L<=G<=U bracketing + the three-way error split
+docs/32-summaries-not-compositional.md  pair additivity is not chain closure
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -84,6 +87,9 @@ src/foc/nested.py                  B4/B5: flat vs nested regimes, projections
 src/foc/longsession.py             B3: longer training via certified truncation
 src/foc/hierarchical.py            the nested router (build, route, flat vs nested bits)
 src/foc/distributed.py             distribute regime nodes across processes (JSON certs)
+src/foc/replacement.py             minimax retention, the replacement envelope, stress tilts
+src/foc/enclosure.py               L<=G<=U bracketing + the three-way error decomposition
+src/foc/composition.py             pair additivity vs chain closure (the covariance identity)
 tests/                             stdlib unittest suite, one file per module
 ```
 
@@ -101,6 +107,9 @@ This matters because the project's README cites the upstream `det_8_framework` a
 | `docs/06-confidence.md`, `confidence.py` (marginal/conditional) | Upstream RET doctrine (marginal vs conditional predictive support); the n=4 singleton construction is local | **Local synthesis** |
 | `docs/07-separation-and-distortion.md`, `confidence.py` (budgets) | Upstream "separation" theme (QR-06 / RET); the specific `slack = D − 2e − 2/m` certificate is local | **Local synthesis** |
 | `docs/08-ambiguity-dichotomy.md`, `docs/09-decidability.md`, `docs/10-locality-and-access.md`, `docs/11-certification-dichotomy.md` | This project's own assembly of the dichotomy from identifiability, gauge / Lie-foliation theory, and Le Cam testing; no direct upstream counterpart | **Local synthesis** — the general theorem and its consequences, marked as synthesis in the docs themselves |
+| `docs/30-replacement-robustness.md`, `replacement.py` | QR-05 bridge branch, `docs/validation/qr-05aa`–`qr-05ae` (declared uncertainty bounds, fixed blends, subtract-coarse-before-max; the whole-fiber replacement envelope and the two stress tilts) | **Extraction** — the minimax/envelope/full-support/tilt statements are upstream-derived; the `1/16` menu bound and the signed-group reading are local |
+| `docs/31-certified-enclosures.md`, `enclosure.py` | QR-05 bridge branch, `docs/validation/qr-05ag`/`qr-05ah`/`qr-05ai` (supplied local-volume marks; boundary refinement; weighted kernels) | **Extraction** — bracketing, refinement monotonicity and the error identities are upstream-derived; the fixture and non-monotone counterexample are local |
+| `docs/32-summaries-not-compositional.md`, `composition.py` | QR-05 bridge branch, `docs/validation/qr-05aj`/`qr-05ak` (pair coarsening; the shared middle) | **Extraction** — the pair product, covariance identity and unit-clip numbers are upstream-derived; the 1-D integral machinery and coarsening fixture are local |
 
 **Rule:** when extending or documenting the code, preserve this distinction. The record-model, equivalence/Z/X, summaries, and forgetting results are upstream-derived — keep them notationally aligned with `det_8_framework`. The ambiguity taxonomy, confidence, and separation-budget results are this project's own exact-ification of upstream *themes* — mark them as such rather than claiming upstream has the exact construction.
 
