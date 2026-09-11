@@ -81,7 +81,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/25-benchmarks.md` adds a reproducible, exact benchmark suite (B1–B6) with projections: the math ladder reproduces the dichotomy, long training is certified (log-in-steps bits), **modularity — not nesting — is the bit lever**, and distribution is the nesting payoff.
 
-These documents (`08`–`25`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/26-math-oracle.md` runs the bootstrap against math-capable local models (`qwen2.5-coder:3b` seeds cleanly, loss 0; `deepseek-r1:8b` times out). `docs/27-node-classes.md` adds cubic/quartic/rational lifts. `docs/28-distribution.md` shards nodes across processes (**5.79×** speedup, bit-identical, JSON certificates). `docs/29-hierarchical-router.md` builds the nested router and **confirms nesting adds routing cost** (6 vs 9 bits).
+
+These documents (`08`–`29`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -139,7 +141,11 @@ finite-observation-calculus/
 │   ├── 22-internal-certification.md     # self-consistency + closed growth (internal certificates)
 │   ├── 23-corrective-loop.md            # localizing an external failure into a bounded correction
 │   ├── 24-bootstrap.md                  # bootstrapping certified nodes from a local LLM
-│   └── 25-benchmarks.md                 # benchmarks, projections, and next steps
+│   ├── 25-benchmarks.md                 # benchmarks, projections, and next steps
+│   ├── 26-math-oracle.md                # the real math oracle (qwen2.5-coder vs deepseek-r1)
+│   ├── 27-node-classes.md               # richer lifts (cubic / quartic / rational)
+│   ├── 28-distribution.md               # distributing nodes across processes
+│   └── 29-hierarchical-router.md        # the nested router (nesting adds cost)
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -162,10 +168,13 @@ finite-observation-calculus/
 │   ├── bootstrap.py            # bootstrap certified nodes from a local LLM
 │   ├── mathbench.py            # B1/B2: math-task ladder (exact fit, sample efficiency)
 │   ├── nested.py               # B4/B5: flat vs nested regimes, projections, distribution
-│   └── longsession.py          # B3: longer training via certified truncation
+│   ├── longsession.py          # B3: longer training via certified truncation
+│   ├── hierarchical.py         # the nested router (build, route, flat vs nested bits)
+│   └── distributed.py          # distribute regime nodes across processes (JSON certs)
 ├── scripts/
 │   ├── bootstrap_llm.py        # runnable LLM bootstrap (offline mock or a local endpoint)
-│   └── benchmarks.py           # reproducible benchmark runner (B1-B6, --distributed)
+│   ├── benchmarks.py           # reproducible benchmark runner (B1-B6, --distributed)
+│   └── distribute.py           # shard nodes across processes; measure wall-clock
 └── tests/                      # stdlib unittest suite
 ```
 

@@ -16,7 +16,7 @@ class TestMathBench(unittest.TestCase):
         self.assertEqual(rows["mul"]["verdict"], "channel-limited")
         self.assertEqual(rows["square"]["verdict"], "channel-limited")
         self.assertEqual(rows["modp"]["verdict"], "law-surviving")
-        self.assertTrue(all(r["verdict"] == r["expected"] for r in mathbench.benchmark_tasks()))
+        self.assertTrue(all(r["min_lift"] == r["expected_lift"] for r in mathbench.benchmark_tasks()))
 
     def test_exact_fits(self):
         self.assertEqual(mathbench.fit("mul", "quadratic")["loss"], Fraction(0))

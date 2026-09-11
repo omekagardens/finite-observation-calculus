@@ -1,16 +1,19 @@
-"""Benchmarks B1/B2: a math-task ladder on exact-checkable tasks (``docs/25``).
+"""Benchmarks B1/B2: a math-task ladder on exact-checkable tasks (``docs/25``, ``docs/27``).
 
 Each task has a known exact target, so "learned" means ``loss == 0`` exactly. The
-ladder instantiates the dichotomy: a task a linear lift fits is *separated*, one
-that needs a quadratic lift is *channel-limited*, and one outside the declared
-feature family is *law-surviving*.
+ladder instantiates the dichotomy and its refinement: a task a *linear* lift fits
+is **separated**, one that needs a richer (higher-degree / rational) lift is
+**channel-limited**, and one outside *every* declared lift is **law-surviving**.
+
+``min_lift`` reports the coarsest lift that fits, so the ladder exposes the
+*symmetry degree* of each task, not just the three-way verdict.
 """
 
 from fractions import Fraction
 
 from . import train
 
-GRID = [(Fraction(a), Fraction(b)) for a in range(-2, 3) for b in range(-2, 3)]
+GRID = [(Fraction(a), Fraction(b)) for a in range(-3, 4) for b in range(-3, 4)]
 
 
 def _linear(x):
@@ -21,7 +24,32 @@ def _quadratic(x):
     return [Fraction(1), x[0], x[1], x[0] * x[0], x[0] * x[1], x[1] * x[1]]
 
 
-LIFTS = {"linear": _linear, "quadratic": _quadratic}
+def _cubic(x):
+    a, b = x
+    return _quadratic(x) + [a ** 3, a * a * b, a * b * b, b ** 3]
+
+
+def _quartic(x):
+    a, b = x
+    return _cubic(x) + [a ** 4, a ** 3 * b, a * a * b * b, a * b ** 3, b ** 4]
+
+
+def _rational(x):
+    # b/(b+4) = 1 - 4/(b+4) and ab/(b+4) = a - 4a/(b+4), so only two rational
+    # features are independent of the polynomial block -- include exactly those.
+    a, b = x
+    d = b + 4
+    return _quadratic(x) + [Fraction(1) / d, a / d]
+
+
+LIFTS = {
+    "linear": _linear,
+    "quadratic": _quadratic,
+    "cubic": _cubic,
+    "quartic": _quartic,
+    "rational": _rational,
+}
+LIFT_ORDER = ["linear", "quadratic", "cubic", "quartic", "rational"]
 
 
 def _add(a, b):
@@ -36,16 +64,36 @@ def _square(a, b):
     return (a + b) * (a + b)
 
 
+def _cube(a, b):
+    return a * a * a
+
+
+def _quart(a, b):
+    return a * a * b * b
+
+
+def _div(a, b):
+    return a / (b + 4)
+
+
+def _divprod(a, b):
+    return (a * b) / (b + 4)
+
+
 def _modp(a, b):
     return (a * b) % 5
 
 
-# task -> (target, ground-truth verdict)
+# task -> (target, ground-truth minimal lift)
 TASKS = {
-    "add": (_add, "separated"),
-    "mul": (_mul, "channel-limited"),
-    "square": (_square, "channel-limited"),
-    "modp": (_modp, "law-surviving"),
+    "add": (_add, "linear"),
+    "mul": (_mul, "quadratic"),
+    "square": (_square, "quadratic"),
+    "cube": (_cube, "cubic"),
+    "quart": (_quart, "quartic"),
+    "div": (_div, "rational"),
+    "divprod": (_divprod, "rational"),
+    "modp": (_modp, "none"),
 }
 
 
@@ -64,13 +112,20 @@ def fit(task, lift, data=GRID):
     return {"coefficients": coeffs, "loss": _fit(A, b, coeffs)}
 
 
+def min_lift(task, data=GRID):
+    """The coarsest lift that fits exactly, or ``None`` (law-surviving)."""
+    for name in LIFT_ORDER:
+        if fit(task, name, data)["loss"] == 0:
+            return name
+    return None
+
+
 def verdict(task, data=GRID):
-    """The coarsest lift that fits exactly (loss 0), else ``law-surviving``."""
-    if fit(task, "linear", data)["loss"] == 0:
-        return "separated"
-    if fit(task, "quadratic", data)["loss"] == 0:
-        return "channel-limited"
-    return "law-surviving"
+    """Three-way verdict: linear -> separated, richer -> channel-limited, none -> law-surviving."""
+    m = min_lift(task, data)
+    if m is None:
+        return "law-surviving"
+    return "separated" if m == "linear" else "channel-limited"
 
 
 def sample_efficiency(task, lift, data=GRID):
@@ -91,16 +146,16 @@ def sample_efficiency(task, lift, data=GRID):
 
 
 def benchmark_tasks():
-    """B1 (exact fit + verdict) and B2 (sample efficiency) over the ladder."""
+    """B1 (exact fit, minimal lift, verdict) and B2 (sample efficiency) over the ladder."""
     rows = []
     for task in TASKS:
+        ml = min_lift(task)
         rows.append({
             "task": task,
-            "loss_linear": fit(task, "linear")["loss"],
-            "loss_quadratic": fit(task, "quadratic")["loss"],
+            "min_lift": ml or "none",
+            "expected_lift": TASKS[task][1],
             "verdict": verdict(task),
-            "expected": TASKS[task][1],
             "samples_linear": sample_efficiency(task, "linear"),
-            "samples_quadratic": sample_efficiency(task, "quadratic"),
+            "samples_min": sample_efficiency(task, ml) if ml else None,
         })
     return rows

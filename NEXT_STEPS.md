@@ -23,6 +23,10 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/23`: the corrective loop — localize an external failure into a bounded correction.
 - `docs/24`: bootstrap — turn a local LLM's regimes/examples into certified nodes (runnable).
 - `docs/25`: benchmarks + projections (B1–B6) — math ladder, long sessions, regimes, distribution.
+- `docs/26`: the real math oracle — `qwen2.5-coder:3b` seeds cleanly; reasoning models time out.
+- `docs/27`: richer node classes — cubic / quartic / rational lifts; `min_lift` = symmetry degree.
+- `docs/28`: distribution at scale — node sharding across processes (5.79x, bit-identical, JSON).
+- `docs/29`: the hierarchical router — build/route; nesting adds routing cost (6 vs 9 bits).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,

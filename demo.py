@@ -33,6 +33,7 @@ from foc import bootstrap
 from foc import mathbench
 from foc import nested
 from foc import longsession
+from foc import hierarchical
 
 
 def fmt_matrix(m):
@@ -315,7 +316,7 @@ def main():
     hdr("23. Benchmarks: math ladder, long sessions, regimes")
     print("  B1/B2 math ladder (verdict vs ground truth):")
     for r in mathbench.benchmark_tasks():
-        print(f"    {r['task']:8} {r['verdict']:16} (expected {r['expected']})")
+        print(f"    {r['task']:8} {r['verdict']:16} (expected {r['expected_lift']})")
     ls = longsession.benchmark_long_session(steps=6, grid=64)
     print(f"  B3 long session: loss {float(ls['loss_first']):.4g} -> {float(ls['loss_last']):.4g},"
           f" max bits {ls['max_bits']}, projected {ls['projected_bits']}")
@@ -323,6 +324,20 @@ def main():
     print(f"  B4/B5 regimes: routing flat {rg['flat_router_bits']} vs nested {rg['nested_router_bits']};"
           f" total monolithic {rg['monolithic_bits']} vs modular {rg['modular_bits']};"
           f" speedup {rg['parallel_speedup']}x; bits@1024 {rg['bits_at_1024_steps']}")
+    print()
+
+    # 24. Richer node classes: the symmetry degree of each task
+    hdr("24. Richer node classes: the symmetry degree of each task")
+    for r in mathbench.benchmark_tasks():
+        print(f"    {r['task']:9} min_lift={r['min_lift']:10} verdict={r['verdict']}")
+    print()
+
+    # 25. Hierarchical router: nesting adds routing cost
+    hdr("25. Hierarchical router: nesting adds routing cost")
+    hier = hierarchical.benchmark_hierarchy()
+    print("  internal margins:", hier["internal_margins"])
+    print(f"  flat router bits {hier['flat_router_bits']} vs nested {hier['nested_router_bits']}"
+          f"  (nesting costs more? {hier['nesting_costs_more']})")
     print()
 
 
