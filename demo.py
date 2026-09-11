@@ -27,6 +27,7 @@ from foc import transformer
 from foc import truncate
 from foc import regime
 from foc import router
+from foc import internal
 
 
 def fmt_matrix(m):
@@ -267,6 +268,19 @@ def main():
     print("    counting downstream (reads I) -> valid :", rrep["counts_valid"])
     print("    Z-reading downstream          -> valid :", rrep["reads_Z_valid"])
     print("    colliding witness (|+>,|->)            :", rrep["witness"])
+    print()
+
+    # 20. Internal certification: self-consistency and closed growth
+    hdr("20. Internal certification: self-consistency + closed growth")
+    ir = internal.internal_report()
+    print("  self-consistency (fixed point of own replacement criterion):")
+    print("    stable node   (orthogonal experts, classical):", ir["stable"])
+    print("    unstable node (overlapping experts, coherent):", ir["unstable"])
+    print("    instability witness (|+>,|->)                 :", ir["witness"])
+    print("  closed growth (invisible sector shrinks as nodes compose):")
+    print("    local node:", ir["annihilator_local_node"],
+          " pairs node:", ir["annihilator_pairs_node"],
+          " composed:", ir["annihilator_composed"])
     print()
 
 
