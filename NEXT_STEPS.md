@@ -18,6 +18,7 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/18`: a genuine transformer trained without floats (exact dual-number gradients).
 - `docs/19`: certified precision — the correction rate bounds exact bit growth.
 - `docs/20`: regime composition — transformers as certified nodes; routing as a record.
+- `docs/21`: a certified router + the routing theorems (type gap, immateriality, boundary).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,

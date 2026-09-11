@@ -71,7 +71,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/20-regime-composition.md` treats transformers as **certified nodes**: each regime is certified by the same theorem, per-regime precision refines the bit budget (modular 24 vs monolithic 36 bits in the demo), and **routing is a record** — hard routing (sum of maps) and soft routing (recombination) give different certified global laws.
 
-These documents (`08`–`20`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/21-certified-router.md` supplies the missing object: a **certified router** (a declared policy with a margin and its own bit budget), and the **routing theorems** — the routing-type gap (hard vs soft), when the type is immaterial, and when the boundary is channel-limited vs law-surviving.
+
+These documents (`08`–`21`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -124,7 +126,8 @@ finite-observation-calculus/
 │   ├── 17-trained-model.md              # exact rational training + a trained-model audit
 │   ├── 18-rational-transformer.md       # a genuine transformer trained without floats
 │   ├── 19-certified-precision.md        # the correction rate bounds exact bit growth
-│   └── 20-regime-composition.md         # transformers as certified nodes; routing as a record
+│   ├── 20-regime-composition.md         # transformers as certified nodes; routing as a record
+│   └── 21-certified-router.md           # a certified router + the routing theorems
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -140,7 +143,8 @@ finite-observation-calculus/
 │   ├── train.py                # exact rational training + a trained-model audit
 │   ├── transformer.py          # a genuine transformer trained without floats
 │   ├── truncate.py             # certified precision: bit growth bounded by the margin
-│   └── regime.py               # transformers as certified nodes; per-regime precision
+│   ├── regime.py               # transformers as certified nodes; per-regime precision
+│   └── router.py               # a certified router + the routing theorems
 └── tests/                      # stdlib unittest suite
 ```
 

@@ -26,6 +26,7 @@ from foc import train
 from foc import transformer
 from foc import truncate
 from foc import regime
+from foc import router
 
 
 def fmt_matrix(m):
@@ -248,6 +249,19 @@ def main():
         print(f"    margin={float(row['margin']):.3f}  grid={row['grid']}  bits={row['bits']}")
     print(f"  modular bits={rp['modular_bits']}  monolithic bits={rp['monolithic_bits']}"
           f"  saving={rp['saving']}")
+    print()
+
+    # 19. A certified router (and routing theorems)
+    hdr("19. A certified router (and routing theorems)")
+    rr = router.router_report()
+    print("  certified routing (margin t=1/2):")
+    for r in rr["routes"]:
+        print(f"    x={r['x']}  route={r['route']}  margin={r['margin']}  certified={r['certified']}")
+    print("  router precision:", rr["router_precision"])
+    print("  routing type matters (hard != soft)?")
+    print("    orthogonal experts, classical input :", rr["type_orthogonal_classical"], "(immaterial)")
+    print("    orthogonal experts, coherent input  :", rr["type_orthogonal_coherent"])
+    print("    overlapping experts, classical input:", rr["type_overlapping_classical"])
     print()
 
 
