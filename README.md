@@ -77,7 +77,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/23-corrective-loop.md` closes the loop between speed and validity: internal certificates are the fast conditional layer, the external verdict is the scarce grounding layer, and each external failure is **localized** (by the annihilator filter and the edge blame) into a **bounded, refinement-safe** correction.
 
-These documents (`08`–`23`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/24-bootstrap.md` fills the last gap: a local LLM supplies **declared** regimes and examples, and the calculus trains and certifies each node exactly (`scripts/bootstrap_llm.py`, run against a real local Ollama model).
+
+These documents (`08`–`24`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -133,7 +135,8 @@ finite-observation-calculus/
 │   ├── 20-regime-composition.md         # transformers as certified nodes; routing as a record
 │   ├── 21-certified-router.md           # a certified router + the routing theorems
 │   ├── 22-internal-certification.md     # self-consistency + closed growth (internal certificates)
-│   └── 23-corrective-loop.md            # localizing an external failure into a bounded correction
+│   ├── 23-corrective-loop.md            # localizing an external failure into a bounded correction
+│   └── 24-bootstrap.md                  # bootstrapping certified nodes from a local LLM
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -152,7 +155,10 @@ finite-observation-calculus/
 │   ├── regime.py               # transformers as certified nodes; per-regime precision
 │   ├── router.py               # a certified router + the routing theorems
 │   ├── internal.py             # internal certification: self-consistency + closed growth
-│   └── corrective.py           # the corrective loop: localizing an external failure
+│   ├── corrective.py           # the corrective loop: localizing an external failure
+│   └── bootstrap.py            # bootstrap certified nodes from a local LLM
+├── scripts/
+│   └── bootstrap_llm.py        # runnable LLM bootstrap (offline mock or a local endpoint)
 └── tests/                      # stdlib unittest suite
 ```
 

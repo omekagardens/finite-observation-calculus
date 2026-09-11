@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (65 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (68 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -54,6 +54,7 @@ docs/20-regime-composition.md      transformers as certified nodes; routing as a
 docs/21-certified-router.md        a certified router + the routing theorems
 docs/22-internal-certification.md  self-consistency + closed growth (internal certificates)
 docs/23-corrective-loop.md         localizing an external failure into a bounded correction
+docs/24-bootstrap.md               bootstrapping certified nodes from a local LLM
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -72,6 +73,7 @@ src/foc/regime.py                  transformers as certified nodes; per-regime p
 src/foc/router.py                  a certified router + the routing theorems
 src/foc/internal.py                internal certification: self-consistency + closed growth
 src/foc/corrective.py              the corrective loop: localizing an external failure
+src/foc/bootstrap.py               bootstrap certified nodes from a local LLM
 tests/                             stdlib unittest suite, one file per module
 ```
 

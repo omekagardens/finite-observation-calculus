@@ -29,6 +29,7 @@ from foc import regime
 from foc import router
 from foc import internal
 from foc import corrective
+from foc import bootstrap
 
 
 def fmt_matrix(m):
@@ -295,6 +296,16 @@ def main():
     c = cvr["correction"]
     print(f"  correction re-certified: invisible dim {c['annihilator_before']} -> {c['annihilator_after']}"
           f"  refinement_safe={c['refinement_safe']}  verdict={c['verdict_holds']}  accepted={c['accepted']}")
+    print()
+
+    # 22. Bootstrapping certified nodes from an LLM (offline mock)
+    hdr("22. Bootstrapping certified nodes from an LLM (offline mock)")
+    boot = bootstrap.bootstrap("predict a rational target", bootstrap.MockLLM())
+    print("  oracle: MockLLM (offline). regimes:", boot["regimes"])
+    for n in boot["nodes"]:
+        c = n["coefficients"]
+        print(f"    {n['regime']:12} c=({c[0]},{c[1]},{c[2]})  loss={n['loss']}  product={n['uses_product']}")
+    print("  (real run: scripts/bootstrap_llm.py --endpoint http://localhost:11434 --model llama3.2:3b)")
     print()
 
 
