@@ -6,12 +6,13 @@ All numbers are ``fractions.Fraction``; nothing here uses floating point.
 
 from . import (
     linalg, instruments, schedule, summaries, geometry, forgetting, confidence,
-    ambiguity, certificate, crossdomain, modelrun,
+    ambiguity, certificate, crossdomain, modelrun, train, transformer,
 )
 
 __all__ = [
     "linalg", "instruments", "schedule", "summaries", "geometry", "forgetting",
-    "confidence", "ambiguity", "certificate", "crossdomain", "modelrun",
+    "confidence", "ambiguity", "certificate", "crossdomain", "modelrun", "train",
+    "transformer",
 ]
 
 __version__ = "0.1.0"

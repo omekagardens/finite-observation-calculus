@@ -22,6 +22,8 @@ from foc import ambiguity
 from foc import certificate
 from foc import crossdomain
 from foc import modelrun
+from foc import train
+from foc import transformer
 
 
 def fmt_matrix(m):
@@ -196,6 +198,26 @@ def main():
     for r in modelrun.model_run():
         print(f"  {r['feature']:14} {str(r['sep_local']) + '/' + str(r['sep_joint']):14}"
               f" {r['verdict']:16} {r['ground_truth']} (correct={r['correct']})")
+    print()
+
+    # 15. A trained model in pure rationals
+    hdr("15. A trained model in pure rationals (exact)")
+    for task in ("linear", "quadratic"):
+        res = train.trained_audit(task)
+        tr = res["trained"]
+        print(f"  task={task}: LS (a,c)={tr['ls']}  loss={tr['loss_ls']}")
+        for row in res["rows"]:
+            print(f"    {row['feature']:16} sep {row['sep_local']}/{row['sep_joint']}"
+                  f"  -> {row['verdict']:16} (correct={row['correct']})")
+    print()
+
+    # 16. A genuine transformer, trained without floats
+    hdr("16. A genuine transformer, trained without floats")
+    hist = transformer.train_exact(transformer.TOY_DATA, steps=2)
+    print("  squared-normalized attention + ReLU MLP + residual; exact rational gradients")
+    for i, (ws, l) in enumerate(hist):
+        print(f"    step {i}: loss={float(l):.6g}  max denom bits={max(w.denominator.bit_length() for w in ws)}")
+    print("  weights all rational?", all(isinstance(w, Fraction) for w in hist[-1][0]))
     print()
 
 

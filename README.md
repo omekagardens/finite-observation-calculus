@@ -63,7 +63,11 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/16-model-run.md` runs the protocol end-to-end on a controlled model with a known feature encoding, scoring the audit's verdicts (separated / channel-limited / law-surviving) against ground truth — all exact.
 
-These documents (`08`–`16`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/17-trained-model.md` trains a model in pure rationals (closed-form least squares plus exact gradient steps) and audits the *learned* representation — the audit recovers which features training actually learned.
+
+`docs/18-rational-transformer.md` corrects a claim from `17`: a genuine transformer is trainable exactly, with no floats — squared-normalized attention, ReLU, and exact dual-number gradients. Floating point is a practical representation, not a logical necessity; the real cost is arithmetic growth.
+
+These documents (`08`–`18`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -112,7 +116,9 @@ finite-observation-calculus/
 │   ├── 13-empirical-protocol.md         # the probe-audit protocol (margin + sample budget)
 │   ├── 14-certificate-toolkit.md        # exact, machine-checkable verdict certificates
 │   ├── 15-cross-domain-zoo.md           # exact witnesses (causal / conformal / partial-ID)
-│   └── 16-model-run.md                  # a controlled model run of the probe audit
+│   ├── 16-model-run.md                  # a controlled model run of the probe audit
+│   ├── 17-trained-model.md              # exact rational training + a trained-model audit
+│   └── 18-rational-transformer.md       # a genuine transformer trained without floats
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -124,7 +130,9 @@ finite-observation-calculus/
 │   ├── ambiguity.py            # the general dichotomy: annihilator, symmetry, collapse
 │   ├── certificate.py          # exact, machine-checkable verdict certificates
 │   ├── crossdomain.py          # cross-domain exact witnesses (causal / conformal / partial-ID)
-│   └── modelrun.py             # a controlled model run of the probe audit (exact)
+│   ├── modelrun.py             # a controlled model run of the probe audit (exact)
+│   ├── train.py                # exact rational training + a trained-model audit
+│   └── transformer.py          # a genuine transformer trained without floats
 └── tests/                      # stdlib unittest suite
 ```
 

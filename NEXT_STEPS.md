@@ -14,6 +14,8 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/14`: the certificate toolkit (exact, machine-checkable verdicts).
 - `docs/15`: cross-domain witness zoo (causal / conformal / partial-ID).
 - `docs/16`: a controlled model run of the probe audit (scored vs ground truth).
+- `docs/17`: exact rational training + a trained-model audit.
+- `docs/18`: a genuine transformer trained without floats (exact dual-number gradients).
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,
@@ -35,12 +37,12 @@ items:
 - a criterion for the **minimal symmetry degree**;
 - decidability of the foliation case from finitely many derivatives.
 
-### T2 — Empirical protocol  *(docs/13; controlled model run in `docs/16`; trained-model run open)*
-`docs/13` specifies the protocol; `docs/16` runs it end-to-end on a controlled
-exact model and scores the verdicts against ground truth. Open: a run on a
-*trained* model (probe directions and separations estimated from held-out data),
-which needs a float/GPU stack and a data path outside this zero-dependency package
-(design B).
+### T2 — Empirical protocol  *(docs/13; controlled `docs/16`; rational-trained `docs/17`; real trained model open)*
+`docs/13` specifies the protocol; `docs/16` runs it on a controlled exact model;
+`docs/17` trains a model in pure rationals and audits the learned representation.
+Open: a run on a *real trained* model (probe directions and separations estimated
+from held-out data), which needs a float/GPU stack and a data path outside this
+zero-dependency package (design B).
 
 ### T3 — Certificate toolkit  *(done: `docs/14`, `src/foc/certificate.py`)*
 Exact certificates per verdict plus an independent verifier and a JSON wire form
