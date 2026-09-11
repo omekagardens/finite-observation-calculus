@@ -25,6 +25,7 @@ from foc import modelrun
 from foc import train
 from foc import transformer
 from foc import truncate
+from foc import regime
 
 
 def fmt_matrix(m):
@@ -233,6 +234,20 @@ def main():
         else:
             print(f"  {r['grid']:>5} {r['bits']:>5} {float(r['separation']):>12.4f}"
                   f" {str(r['rate_two_ok']):>9}  {'yes' if r['verdict_ok'] else 'no'}")
+    print()
+
+    # 18. Regime composition: transformers as certified nodes
+    hdr("18. Regime composition: per-regime precision + routing")
+    rl = regime.routing_laws()
+    print("  routing on the same experts: hard (sum of maps) vs soft (recombination)")
+    print("    hard =", fmt_matrix(rl["hard"]))
+    print("    soft =", fmt_matrix(rl["soft"]), "differ?", rl["differ"])
+    rp = regime.regime_precision([Fraction(1, 4), Fraction(3, 10), Fraction(2, 5), Fraction(12, 25)])
+    print("  per-regime precision (coarsest certified grid):")
+    for row in rp["per_regime"]:
+        print(f"    margin={float(row['margin']):.3f}  grid={row['grid']}  bits={row['bits']}")
+    print(f"  modular bits={rp['modular_bits']}  monolithic bits={rp['monolithic_bits']}"
+          f"  saving={rp['saving']}")
     print()
 
 
