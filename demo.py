@@ -30,6 +30,9 @@ from foc import router
 from foc import internal
 from foc import corrective
 from foc import bootstrap
+from foc import mathbench
+from foc import nested
+from foc import longsession
 
 
 def fmt_matrix(m):
@@ -306,6 +309,20 @@ def main():
         c = n["coefficients"]
         print(f"    {n['regime']:12} c=({c[0]},{c[1]},{c[2]})  loss={n['loss']}  product={n['uses_product']}")
     print("  (real run: scripts/bootstrap_llm.py --endpoint http://localhost:11434 --model llama3.2:3b)")
+    print()
+
+    # 23. Benchmarks: math ladder, long sessions, regimes
+    hdr("23. Benchmarks: math ladder, long sessions, regimes")
+    print("  B1/B2 math ladder (verdict vs ground truth):")
+    for r in mathbench.benchmark_tasks():
+        print(f"    {r['task']:8} {r['verdict']:16} (expected {r['expected']})")
+    ls = longsession.benchmark_long_session(steps=6, grid=64)
+    print(f"  B3 long session: loss {float(ls['loss_first']):.4g} -> {float(ls['loss_last']):.4g},"
+          f" max bits {ls['max_bits']}, projected {ls['projected_bits']}")
+    rg = nested.benchmark_regimes()
+    print(f"  B4/B5 regimes: routing flat {rg['flat_router_bits']} vs nested {rg['nested_router_bits']};"
+          f" total monolithic {rg['monolithic_bits']} vs modular {rg['modular_bits']};"
+          f" speedup {rg['parallel_speedup']}x; bits@1024 {rg['bits_at_1024_steps']}")
     print()
 
 

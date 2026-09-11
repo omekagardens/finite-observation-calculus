@@ -79,7 +79,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/24-bootstrap.md` fills the last gap: a local LLM supplies **declared** regimes and examples, and the calculus trains and certifies each node exactly (`scripts/bootstrap_llm.py`, run against a real local Ollama model).
 
-These documents (`08`–`24`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/25-benchmarks.md` adds a reproducible, exact benchmark suite (B1–B6) with projections: the math ladder reproduces the dichotomy, long training is certified (log-in-steps bits), **modularity — not nesting — is the bit lever**, and distribution is the nesting payoff.
+
+These documents (`08`–`25`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -136,7 +138,8 @@ finite-observation-calculus/
 │   ├── 21-certified-router.md           # a certified router + the routing theorems
 │   ├── 22-internal-certification.md     # self-consistency + closed growth (internal certificates)
 │   ├── 23-corrective-loop.md            # localizing an external failure into a bounded correction
-│   └── 24-bootstrap.md                  # bootstrapping certified nodes from a local LLM
+│   ├── 24-bootstrap.md                  # bootstrapping certified nodes from a local LLM
+│   └── 25-benchmarks.md                 # benchmarks, projections, and next steps
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -156,9 +159,13 @@ finite-observation-calculus/
 │   ├── router.py               # a certified router + the routing theorems
 │   ├── internal.py             # internal certification: self-consistency + closed growth
 │   ├── corrective.py           # the corrective loop: localizing an external failure
-│   └── bootstrap.py            # bootstrap certified nodes from a local LLM
+│   ├── bootstrap.py            # bootstrap certified nodes from a local LLM
+│   ├── mathbench.py            # B1/B2: math-task ladder (exact fit, sample efficiency)
+│   ├── nested.py               # B4/B5: flat vs nested regimes, projections, distribution
+│   └── longsession.py          # B3: longer training via certified truncation
 ├── scripts/
-│   └── bootstrap_llm.py        # runnable LLM bootstrap (offline mock or a local endpoint)
+│   ├── bootstrap_llm.py        # runnable LLM bootstrap (offline mock or a local endpoint)
+│   └── benchmarks.py           # reproducible benchmark runner (B1-B6, --distributed)
 └── tests/                      # stdlib unittest suite
 ```
 

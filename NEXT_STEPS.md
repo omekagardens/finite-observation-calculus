@@ -22,6 +22,7 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/22`: internal certification — self-consistency (fixed point) + closed, monotone growth.
 - `docs/23`: the corrective loop — localize an external failure into a bounded correction.
 - `docs/24`: bootstrap — turn a local LLM's regimes/examples into certified nodes (runnable).
+- `docs/25`: benchmarks + projections (B1–B6) — math ladder, long sessions, regimes, distribution.
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,
