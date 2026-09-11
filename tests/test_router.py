@@ -29,6 +29,12 @@ class TestRouter(unittest.TestCase):
         self.assertTrue(rep["type_orthogonal_coherent"])     # coherence -> material
         self.assertTrue(rep["type_overlapping_classical"])   # overlap -> material
 
+    def test_replacement_criterion(self):
+        rep = router.replacement_report()
+        self.assertTrue(rep["counts_valid"])       # blind downstream: replacement valid
+        self.assertFalse(rep["reads_Z_valid"])     # Z-reading downstream: not valid
+        self.assertTrue(rep["witness"]["no_replacement"])
+
 
 if __name__ == "__main__":
     unittest.main()

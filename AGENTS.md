@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (60 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (61 tests)
 pip install -e .                             # optional: install as a package
 ```
 

@@ -49,7 +49,27 @@ So a meta-model must **declare its routing type**, and hard routing is a valid
 replacement for soft **only** in the classical / orthogonal case — otherwise
 `docs/05`'s obstruction applies.
 
-## 5. Routing theorem 3 — the boundary is ambiguous
+## 5. Routing theorem 3 — the replacement criterion
+
+Theorem 2 says when the type is immaterial *globally*. The sharper,
+decision-relevant question is **source-relative** (`docs/05` §3): is hard routing
+a valid **replacement** for soft *for a declared downstream*?
+
+> **Replacement criterion.** Hard routing is a valid replacement for soft for a
+> downstream family $\{E\}$ iff every downstream effect is **blind to the gap**
+> $S - H$: $\operatorname{Tr}\big(E\,(S(\rho) - H(\rho))\big) = 0$ for all $E$,
+> $\rho$.
+
+- a downstream that only **counts** (reads $I$) is blind — the replacement is valid;
+- a downstream that reads $Z$ is **not** — the replacement fails.
+
+Failure is certified by a **colliding-inputs witness** (`docs/05` §4): two inputs
+hard routing *merges* that soft routing *separates* — $|+\rangle$ and $|-\rangle$,
+which $H$ both send to $I/2$ while $S$ sends to distinct states. That is an
+*impossibility proof* (no operation on the hard output reproduces both required
+outputs), not the failure of one candidate.
+
+## 6. Routing theorem 4 — the boundary is ambiguous
 
 An input with margin $< t$ is ambiguous, and the ambiguity is exactly the
 taxonomy of `docs/08`:
@@ -59,12 +79,12 @@ taxonomy of `docs/08`:
 - **law-surviving** — no score separates them: the regimes genuinely overlap on
   the declared record, and the routing is *declared*, never certified.
 
-## 6. Composition
+## 7. Composition
 
 Total precision $=\;$ router bits $+\sum_r$ node bits, and the meta-verdict is the
 nodes' verdicts composed with the router's. This closes `docs/20`.
 
-## 7. The demonstration
+## 8. The demonstration
 
 `foc.router.router_report`:
 
@@ -78,10 +98,14 @@ Router precision at $t=1/2$: coarsest grid $4$, **3 bits**. Routing type:
 orthogonal/classical → immaterial; orthogonal/coherent → material; overlapping/
 classical → material.
 
-## 8. Status
+Replacement criterion (`foc.router.replacement_report`): counting downstream →
+valid; $Z$-reading downstream → invalid, with the colliding-inputs witness.
+
+## 9. Status
 
 Implemented as `foc.router` (`score`, `route`, `routing_margin`,
-`certified_route`, `router_precision`, `routing_type_gap`, `router_report`) and
-run in demo section 19.
+`certified_route`, `router_precision`, `routing_type_gap`, `hard_routing`,
+`soft_routing`, `replacement_holds`, `collision_witness`, `replacement_report`,
+`router_report`) and run in demo section 19.
 
 **Back to** [README](../README.md).

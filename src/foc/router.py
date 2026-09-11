@@ -71,6 +71,65 @@ def routing_type_gap(experts, rho):
     return {"hard": hard, "soft": soft, "differ": hard != soft}
 
 
+def hard_routing(experts, rho):
+    """Hard routing: sum of maps (the router's choice is a discarded record)."""
+    return fg.incoherent_sum(experts, rho)
+
+
+def soft_routing(experts, rho):
+    """Soft routing: recombination (amplitudes summed before squaring)."""
+    return fg.coherent_recombination(experts, rho)
+
+
+def replacement_holds(experts, downstream, states):
+    """Is hard routing a **valid replacement** for soft for the declared downstream? (``docs/05`` §3)
+
+    ``downstream`` is a family of effects; the replacement holds iff every
+    downstream effect is blind to the gap ``soft - hard`` on every state, i.e.
+    ``Tr(E (soft - hard)(rho)) = 0`` for all ``E``, ``rho``.
+    """
+    for rho in states:
+        gap = la.mat_sub(soft_routing(experts, rho), hard_routing(experts, rho))
+        if any(la.trace(la.mat_mul(E, gap)) != 0 for E in downstream):
+            return False
+    return True
+
+
+def collision_witness(experts, rho_a, rho_b):
+    """A **colliding-inputs** certificate: two inputs hard routing collides that soft separates.
+
+    By ``docs/05`` §4 this is an actual impossibility proof — no operation on the
+    hard (coarse) output can reproduce both required outputs — not merely the
+    failure of one candidate replacement.
+    """
+    hard_a, hard_b = hard_routing(experts, rho_a), hard_routing(experts, rho_b)
+    soft_a, soft_b = soft_routing(experts, rho_a), soft_routing(experts, rho_b)
+    return {
+        "hard_collides": hard_a == hard_b,
+        "soft_separates": soft_a != soft_b,
+        "no_replacement": hard_a == hard_b and soft_a != soft_b,
+    }
+
+
+_Z = la.mat([[1, 0], [0, -1]])
+
+
+def replacement_report():
+    """The replacement criterion on the ``docs/05`` experts (``docs/21`` §4).
+
+    A downstream that only *counts* (reads ``I``) is blind to the gap and admits
+    the hard replacement; a downstream that reads ``Z`` is not — with the
+    colliding-inputs witness ``(|+>, |->)``.
+    """
+    experts = [fg.D0, fg.D1]
+    states = [ins.rho_plus(), ins.rho_minus(), ins.rho_mixed()]
+    return {
+        "counts_valid": replacement_holds(experts, [la.identity(2)], states),
+        "reads_Z_valid": replacement_holds(experts, [_Z], states),
+        "witness": collision_witness(experts, ins.rho_plus(), ins.rho_minus()),
+    }
+
+
 def router_report(margin=Fraction(1, 2)):
     """Assemble the certified-routing and routing-type results (``docs/21``)."""
     w = [Fraction(3, 5), Fraction(-4, 5)]

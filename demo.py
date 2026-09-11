@@ -262,6 +262,11 @@ def main():
     print("    orthogonal experts, classical input :", rr["type_orthogonal_classical"], "(immaterial)")
     print("    orthogonal experts, coherent input  :", rr["type_orthogonal_coherent"])
     print("    overlapping experts, classical input:", rr["type_overlapping_classical"])
+    rrep = router.replacement_report()
+    print("  replacement criterion (hard for soft):")
+    print("    counting downstream (reads I) -> valid :", rrep["counts_valid"])
+    print("    Z-reading downstream          -> valid :", rrep["reads_Z_valid"])
+    print("    colliding witness (|+>,|->)            :", rrep["witness"])
     print()
 
 
