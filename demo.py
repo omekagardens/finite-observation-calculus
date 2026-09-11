@@ -28,6 +28,7 @@ from foc import truncate
 from foc import regime
 from foc import router
 from foc import internal
+from foc import corrective
 
 
 def fmt_matrix(m):
@@ -281,6 +282,19 @@ def main():
     print("    local node:", ir["annihilator_local_node"],
           " pairs node:", ir["annihilator_pairs_node"],
           " composed:", ir["annihilator_composed"])
+    print()
+
+    # 21. The corrective loop (localizing an external failure)
+    hdr("21. The corrective loop: localizing an external failure")
+    cvr = corrective.corrective_report()
+    print("  annihilator filter (which node can see the failing feature):")
+    print("    failing 2-body Z(x)Z ->", cvr["localize_2body"])
+    print("    failing 1-body Z(x)I ->", cvr["localize_1body"])
+    print("  edge blame (what the failing downstream reads):")
+    print("    reads Z ->", cvr["blame_Z"], " reads I ->", cvr["blame_I"])
+    c = cvr["correction"]
+    print(f"  correction re-certified: invisible dim {c['annihilator_before']} -> {c['annihilator_after']}"
+          f"  refinement_safe={c['refinement_safe']}  verdict={c['verdict_holds']}  accepted={c['accepted']}")
     print()
 
 

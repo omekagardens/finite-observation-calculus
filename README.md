@@ -75,7 +75,9 @@ The six results above are instances of one theorem (`docs/08-ambiguity-dichotomy
 
 `docs/22-internal-certification.md` separates **internal** from external certification: over declared interfaces the certification is closed and local, self-reinforcement is stable iff the model is a fixed point of its own replacement criterion (with a colliding-inputs *instability* certificate otherwise), and growth is monotone.
 
-These documents (`08`–`22`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
+`docs/23-corrective-loop.md` closes the loop between speed and validity: internal certificates are the fast conditional layer, the external verdict is the scarce grounding layer, and each external failure is **localized** (by the annihilator filter and the edge blame) into a **bounded, refinement-safe** correction.
+
+These documents (`08`–`23`) are an expository **synthesis** — they assemble known mathematics (identifiability, gauge and Lie-foliation theory, Le Cam testing) into the dichotomy with exact witnesses. They are not new theorems; the contribution is the unified framing. The computable core is implemented in `src/foc/ambiguity.py`; open directions are tracked in [`NEXT_STEPS.md`](NEXT_STEPS.md).
 
 ---
 
@@ -130,7 +132,8 @@ finite-observation-calculus/
 │   ├── 19-certified-precision.md        # the correction rate bounds exact bit growth
 │   ├── 20-regime-composition.md         # transformers as certified nodes; routing as a record
 │   ├── 21-certified-router.md           # a certified router + the routing theorems
-│   └── 22-internal-certification.md     # self-consistency + closed growth (internal certificates)
+│   ├── 22-internal-certification.md     # self-consistency + closed growth (internal certificates)
+│   └── 23-corrective-loop.md            # localizing an external failure into a bounded correction
 ├── src/foc/                    # the reference implementation
 │   ├── linalg.py               # exact rational matrix helpers
 │   ├── instruments.py          # observation maps, states, channels
@@ -148,7 +151,8 @@ finite-observation-calculus/
 │   ├── truncate.py             # certified precision: bit growth bounded by the margin
 │   ├── regime.py               # transformers as certified nodes; per-regime precision
 │   ├── router.py               # a certified router + the routing theorems
-│   └── internal.py             # internal certification: self-consistency + closed growth
+│   ├── internal.py             # internal certification: self-consistency + closed growth
+│   └── corrective.py           # the corrective loop: localizing an external failure
 └── tests/                      # stdlib unittest suite
 ```
 

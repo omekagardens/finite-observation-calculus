@@ -20,6 +20,7 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/20`: regime composition — transformers as certified nodes; routing as a record.
 - `docs/21`: a certified router + the routing theorems (type gap, immateriality, boundary).
 - `docs/22`: internal certification — self-consistency (fixed point) + closed, monotone growth.
+- `docs/23`: the corrective loop — localize an external failure into a bounded correction.
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,

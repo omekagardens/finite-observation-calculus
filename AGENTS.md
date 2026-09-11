@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (63 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (65 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -53,6 +53,7 @@ docs/19-certified-precision.md     the correction rate bounds exact bit growth
 docs/20-regime-composition.md      transformers as certified nodes; routing as a record
 docs/21-certified-router.md        a certified router + the routing theorems
 docs/22-internal-certification.md  self-consistency + closed growth (internal certificates)
+docs/23-corrective-loop.md         localizing an external failure into a bounded correction
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -70,6 +71,7 @@ src/foc/truncate.py                certified precision: bit growth bounded by th
 src/foc/regime.py                  transformers as certified nodes; per-regime precision
 src/foc/router.py                  a certified router + the routing theorems
 src/foc/internal.py                internal certification: self-consistency + closed growth
+src/foc/corrective.py              the corrective loop: localizing an external failure
 tests/                             stdlib unittest suite, one file per module
 ```
 
