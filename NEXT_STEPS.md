@@ -16,6 +16,7 @@ A living list of what is done and what is open. Companion to `README.md` and `do
 - `docs/16`: a controlled model run of the probe audit (scored vs ground truth).
 - `docs/17`: exact rational training + a trained-model audit.
 - `docs/18`: a genuine transformer trained without floats (exact dual-number gradients).
+- `docs/19`: certified precision — the correction rate bounds exact bit growth.
 - `src/foc/ambiguity.py`: `annihilator_dim`, `classify`, `probe_audit`,
   `linear_symmetry_dim`, `polynomial_symmetry_dim`, `rank1_symmetry_field`,
   `feature_separation`, `certify_audit`, `l_inf_separation`,

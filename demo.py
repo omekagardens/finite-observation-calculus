@@ -24,6 +24,7 @@ from foc import crossdomain
 from foc import modelrun
 from foc import train
 from foc import transformer
+from foc import truncate
 
 
 def fmt_matrix(m):
@@ -218,6 +219,20 @@ def main():
     for i, (ws, l) in enumerate(hist):
         print(f"    step {i}: loss={float(l):.6g}  max denom bits={max(w.denominator.bit_length() for w in ws)}")
     print("  weights all rational?", all(isinstance(w, Fraction) for w in hist[-1][0]))
+    print()
+
+    # 17. Certified precision: truncation bounded by the margin
+    hdr("17. Certified precision: truncation bounded by the margin")
+    ct = truncate.certified_truncation(steps=2)
+    print(f"  exact weights: {ct['exact_bits']} denom bits;"
+          f"  separation D={float(ct['separation']):.4f};  margin t={float(ct['margin']):.4f}")
+    print(f"  {'grid':>5} {'bits':>5} {'separation':>12} {'rate-two':>9}  verdict")
+    for r in ct["rows"]:
+        if r["degenerate"]:
+            print(f"  {r['grid']:>5} {r['bits']:>5} {'degenerate':>12} {'-':>9}  no")
+        else:
+            print(f"  {r['grid']:>5} {r['bits']:>5} {float(r['separation']):>12.4f}"
+                  f" {str(r['rate_two_ok']):>9}  {'yes' if r['verdict_ok'] else 'no'}")
     print()
 
 

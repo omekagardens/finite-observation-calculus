@@ -112,6 +112,11 @@ def _loss_dual(ws, data):
     return sum((( _forward_dual(ws, X) - y) ** 2 for X, y in data), Dual(0)) / 2
 
 
+def predict(ws, X):
+    """Exact model output (``Fraction``) for the token matrix ``X``."""
+    return _forward_dual(_params_to_dual(ws), X).v
+
+
 def loss(ws, data):
     """Exact loss value (``Fraction``) at ``ws``."""
     return _loss_dual(_params_to_dual(ws), data).v

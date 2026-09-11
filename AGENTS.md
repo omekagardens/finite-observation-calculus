@@ -14,7 +14,7 @@ The local project deliberately strips away the upstream `det_8_framework`'s onto
 
 ```bash
 python3 demo.py                              # runnable walkthrough of every result
-python3 -m unittest discover -s tests -v     # stdlib unittest suite (53 tests)
+python3 -m unittest discover -s tests -v     # stdlib unittest suite (55 tests)
 pip install -e .                             # optional: install as a package
 ```
 
@@ -49,6 +49,7 @@ docs/15-cross-domain-zoo.md        exact witnesses (causal / conformal / partial
 docs/16-model-run.md               a controlled model run of the probe audit
 docs/17-trained-model.md           exact rational training + a trained-model audit
 docs/18-rational-transformer.md    a genuine transformer trained without floats
+docs/19-certified-precision.md     the correction rate bounds exact bit growth
 src/foc/linalg.py                  exact rational matrix helpers (lists of lists of Fraction)
 src/foc/instruments.py             states, projectors, outcome maps, channels
 src/foc/schedule.py                records, schedules, the Z/X counterexample
@@ -62,6 +63,7 @@ src/foc/crossdomain.py             cross-domain exact witnesses
 src/foc/modelrun.py                a controlled model run of the probe audit (exact)
 src/foc/train.py                   exact rational training + a trained-model audit
 src/foc/transformer.py             a genuine transformer trained without floats
+src/foc/truncate.py                certified precision: bit growth bounded by the margin
 tests/                             stdlib unittest suite, one file per module
 ```
 
